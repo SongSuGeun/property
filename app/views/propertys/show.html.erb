@@ -1,0 +1,93 @@
+<script>
+      function initMap() {
+        var myLatLng = {lat: <%= @propertys.longitude %>, lng: <%= @propertys.latitude %>};       
+        var map = new google.maps.Map(document.getElementById('google_map'), {
+          zoom : 15, //기본 확대율
+          center : myLatLng, // 지도 중앙 위치
+          scrollwheel : true, //마우스 휠로 확대 축소 사용 여부
+          mapTypeControl : true //맵 타입 컨트롤 사용 여부
+        });
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map
+        });
+      }
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfhQeDhWJ_go3vaiDCB0slA9uFoK4nSpw&callback=initMap">
+</script>
+<table>
+    <tr>
+      <th>物件名</th>
+      <th><%= @propertys.name %></th>
+    </tr>
+    <tr>
+        <th>投稿者</th>
+        <th><%= @propertys.user.name %></th>
+    </tr>
+    <tr>
+        <th>クリック数</th>
+        <th><%= @propertys.impressionist_count %></th>
+    </tr>
+    <tr>
+      <th>
+        物件写真
+      </th>
+    </tr>
+    <tr>
+      <% @propertys.image.each do |image| %>
+        <th><%= image_tag (image.url)%></th>
+      <% end %>
+    </tr>
+    <tr>
+      <th>ビデオ</th>
+    </tr>
+    <tr>
+    <% if @propertys.video? %>
+      <th><%= video_tag @propertys.video.url, autoplay: true, muted: true, controls: true , :size => "350x260"%></th>
+    <% else %>
+      <th>登録されたビデオがありません。</th>
+    <% end %>
+    </tr>
+    <tr>
+      <th>家賃</th>
+      <th><%= @propertys.rent %></th>
+    </tr>
+    <tr>
+      <th>間取り</th>
+      <th><%= @propertys.extent %></th>
+    </tr>
+    <tr>
+      <th>敷金</th>
+      <th><%= @propertys.subsidy %></th>
+    </tr>
+    <tr>
+      <th>礼金</th>
+      <th><%= @propertys.reward %></th>
+    </tr>
+    <tr>
+      <th>区</th>
+      <th><%= @propertys.region %></th>
+    </tr>  
+    <tr>
+      <th>広さ(㎡)</th>
+      <th><%= @propertys.area %></th>
+    </tr>
+    <tr>
+      <th>地図</th>
+    </tr>  
+    <tr>
+      <th>
+        <div id="google_map"  style="width:500px;height:380px;"></div>
+      </th>
+    </tr>
+    <tr>
+      <% if current_user.present? %>
+        <% if @favorite.present? %>
+          <th><%= link_to 'お気に入り解除する', favorite_path(id: @favorite.id), method: :delete, class: 'btn btn-danger' %></th>
+        <% else %>
+          <th><%= link_to 'お気に入りする', favorites_path(propertys_id: @propertys.id), method: :post, class: 'btn btn-primary' %></th>
+        <% end %>
+      <% end %>
+    </tr>
+</table>

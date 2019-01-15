@@ -1,0 +1,25 @@
+<div>
+  <table>
+     <tr>
+      <td>加入日:<%= @user.created_at %></td>
+    </tr>
+    <tr>
+      <td><%= image_tag @user.icon_image.url %></td>
+    </tr>
+    <tr>
+      <td>name:<%= @user.name %>🎊</td>
+    </tr>
+    <tr>
+      <td>加入有形
+        <% if @user.authority == 1  %>
+          :不動産業者
+        <% else %>
+          :利用者
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>あなたは<%= @user.id %>番目の会員です。</td>
+    </tr>
+  </table>
+</div>

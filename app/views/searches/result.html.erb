@@ -1,0 +1,47 @@
+<h1>検索結果は下記になります。</h1>
+<div>
+  <table>
+  <% if @searches.present? %>      
+      <tr>
+        <th>投稿者</th>
+        <th>物件写真</th>
+        <th>物件名</th>
+        <th>家賃</th>
+        <th>敷金</th>
+        <th>礼金</th>
+        <th>区</th>
+        <th>広さ(㎡)</th>
+        <th>間取り</th>
+      </tr>
+    <% @searches.each do |x| %>
+      <tr>
+        <th><%= x.user.name %></th>
+        <th>
+          <%= link_to property_path(x.id) do %>
+            <%= image_tag(x.image[0].url, size:"60x60") %>
+          <% end %>
+        </th>
+        <th><%= link_to x.name, property_path(x.id) %></th>
+        <th><%= x.rent %></th>
+        <th><%= x.subsidy %></th>
+        <th><%= x.reward %></th>
+        <th><%= x.region %></th>
+        <th><%= x.area %></th>
+        <th><%= x.extent %></th>
+    <% if x.user_id == current_user.id %>
+      <th>
+        <%= link_to '編集', edit_property_path(x.id), data:{confirm: "物件情報を編集しますか."} %>
+      </th>
+      <th>
+        <%= link_to '削除', property_path(x.id), method: :delete, data:{confirm: "物件を削除しますか."} %>
+      </th>
+    <% end %>
+    </tr>
+  <% end %>
+<% else %>
+  <tr>
+    <td colspan='10'><h3>登録された物件がありません。</h3></td>
+  </tr>
+<% end %>
+</table>
+</div>

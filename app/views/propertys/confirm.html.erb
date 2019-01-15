@@ -1,0 +1,97 @@
+<script language='javascript'>
+
+</script>
+
+<h1>物件登録確認ページ</h1>
+<div>
+<table>
+  <tr>
+    <td>物件イメージ</td>
+  </tr>
+<%= form_with(model: @propertys, url: propertys_path, local: true) do |f| %>  
+    <tr>
+      <% if @propertys.image? %>
+        <% @propertys.image.each do |image| %>
+          <td><%= image_tag(image.url)%></td>
+        <% end %>
+      <% end %>  
+      <td><%= f.hidden_field :image, value: @propertys.image %></td>
+      <td><%= f.hidden_field :image_cache %></td>
+    </tr>
+    <tr>
+      <td>物件イメージ</td>
+    </tr>
+    <tr>
+      <% if @propertys.video? %>
+        <td><%= video_tag @propertys.video.url, autoplay: true, muted: true, controls: true , :size => "350x260"%></td>
+        <%= f.hidden_field :video, :value => @propertys.video.url %>
+        <%= f.hidden_field :video, value: @propertys.video.url %>
+      <% else %>
+        <td>登録されたビデオがありません。</td>
+      <% end %>  
+    </tr>
+    <tr>
+      <td>物件名</td>
+      <td><%= @propertys.name %></td>
+      <td><%= f.hidden_field :name, value: @propertys.name %></td>
+    </tr>
+    <tr>
+      <td>家賃</td>
+      <td><%= @propertys.rent %></td>
+      <td><%= f.hidden_field :rent, value: @propertys.rent %></td>
+    </tr>
+    <tr>
+      <td>敷金</td>
+      <td><%= @propertys.subsidy %></td>
+      <td><%= f.hidden_field :subsidy, value: @propertys.subsidy %></td>
+    </tr>
+    <tr>
+      <td>礼金</td>
+      <td><%= @propertys.reward %></td>
+      <td><%= f.hidden_field :reward, value: @propertys.reward %></td>
+    </tr>
+    <tr>
+      <td>区</td>
+      <td>
+        <% if @propertys.region == ('千代田'||'中央'||'港'||'新宿'||'文京'||'台東'||'渋谷'||'豊島'||'世田谷'||'中野'||'品川'||'目黒'||'墨田'||'北'||'江戸川'||'練馬'||'杉並') %>
+          toukyou
+        <% else %>
+          oosaka
+        <% end %>
+        <%= @propertys.region %>
+      </td>
+      <td><%= f.hidden_field :region, value: @propertys.region %></td>
+    </tr>
+    <tr>
+      <td>位置</td>
+      <td>経度<%= @propertys.longitude %></td>
+      <td><%= f.hidden_field :longitude, value: @propertys.longitude %></td>
+      <td>緯度<%= @propertys.latitude %></td>
+      <td><%= f.hidden_field :latitude, value: @propertys.latitude %></td>
+    </tr>
+    <tr>
+      <td>広さ</td>
+      <td><%= @propertys.area %> (㎡)</td>
+      <td><%= f.hidden_field :area, value: @propertys.area %></td>
+    </tr>
+    <tr>
+      <td>間取り</td>
+      <td><%= @propertys.extent %></td>
+      <td><%= f.hidden_field :extent, value: @propertys.extent %></td>    
+    </tr>
+    <tr>
+      <td colspan ='2'><%= f.submit "登録" %></td>
+    </tr>
+<% end %>
+</table>
+</div>
+<%= form_with(model: @propertys, url: new_property_path, local: true, method: 'get') do |form| %>
+  <%= form.hidden_field :image_cache %>
+  <%= form.hidden_field :name %>
+  <%= form.hidden_field :rent %>
+  <%= form.hidden_field :subsidy %>
+  <%= form.hidden_field :reward %>
+  <%= form.hidden_field :area %>
+  <%= form.hidden_field :extent %>
+  <%= form.submit "戻る", name: 'back' %>
+<% end %> 

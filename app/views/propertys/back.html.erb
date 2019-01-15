@@ -1,0 +1,89 @@
+ <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+
+ <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    
+
+
+<head>
+    <% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js'></script>
+<%= yield %>
+ 
+</head>
+	<header id="header">
+				<div class="inner">
+					<a href="index.html" class="logo">introspect</a>
+				    <!-- <%= image_tag ('anrakulogo.PNG'),:class => 'logo'%> -->
+					<nav id="nav">
+					  <%= link_to (propertys_path) do  %>ホーム<% end %>
+					  <% if logged_in? %>
+ 					    <%= link_to user_path(current_user.id) do  %>プロフィール<% end %>
+						  <%= link_to logout_path(current_user.id), method: :delete do %>ログアウト<% end %>
+					  <% else %>
+  					  <%= link_to new_user_path do  %>会員加入<% end %>
+  						<%= link_to (new_session_path) do  %>ログイン<% end %>
+ 					  <% end %>
+  					  <%= link_to (propertys_path) do  %>公知掲示板<% end %>
+  					  <%= link_to (propertys_path) do  %>お問い合わせ<% end %>
+  					  <%= link_to (list_propertys_path) do  %>物件一覧<% end %>
+					  <% if logged_in? %>
+					                ログイン中 
+					  <% end %>
+					</nav>
+				</div>
+			</header>
+
+
+
+テクノロジー X 不動産<br/>
+    世界を変わる革新技術<br/>
+    安楽で極楽往生
+    
+    ==============================
+구글 맵 관련
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<!-- <script src="http://maps.googleapis.com/maps/api/js"></script> -->
+<script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyDfhQeDhWJ_go3vaiDCB0slA9uFoK4nSpw"></script>
+<script>
+jQuery(document).ready(function(){
+    if($("#google_map").length) {
+      var myLatLng = {lat: <%= @propertys.longitude %>, lng: <%= @propertys.latitude %>};       
+      var mapOptions = { //구글 맵 옵션 설정
+        zoom : 15, //기본 확대율
+        center : myLatLng, // 지도 중앙 위치
+        scrollwheel : true, //마우스 휠로 확대 축소 사용 여부
+        mapTypeControl : true //맵 타입 컨트롤 사용 여부
+      };
+      var map = new google.maps.Map(document.getElementById('google_map'), mapOptions); //구글 맵을 사용할 타겟
+     
+      //var image = 'https://cheolguso.com/img/iconimg.png';
+      //마커 이미지 설정
+      
+      google.maps.event.addDomListener(window, "resize", function() { //리사이즈에 따른 마커 위치
+        var center = map.getCenter();
+        google.maps.event.trigger(map, "resize");
+        map.setCenter(center); 
+      });
+      
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Hello World!'
+      });  
+    }//if-end
+}//function-end
+});//jQuery-end
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfhQeDhWJ_go3vaiDCB0slA9uFoK4nSpw&callback=initMap" async defer></script>

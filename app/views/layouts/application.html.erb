@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>anraku</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <nav>
+    <div>
+    <%= link_to (propertys_path) do  %>ホーム<% end %>
+		<% if logged_in? %>
+ 		  <%= link_to user_path(current_user.id) do  %>プロフィール<% end %>
+		  <%= link_to session_path(current_user.id), method: :delete do %>ログアウト<% end %>
+		<% else %>
+  		  <%= link_to new_user_path do  %>会員加入<% end %>
+  		  <%= link_to (new_session_path) do  %>ログイン<% end %>
+ 		<% end %>
+  		<%= link_to (propertys_path) do  %>掲示板<% end %>
+  		<%= link_to (list_propertys_path) do  %>物件一覧<% end %>
+		<% if logged_in? %>ログイン中<% end %>
+    </div>
+  </div>
+</nav>
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+<%= yield %>
+    
+</body>
+</html>

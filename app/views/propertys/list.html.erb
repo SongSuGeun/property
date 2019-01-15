@@ -1,0 +1,67 @@
+<%= render 'searches/search_form', post: @propertys.klass %>
+<%= javascript_include_tag 'application' %> 
+<%= csrf_meta_tags %>
+<table>
+  <tr>
+  <td><%= link_to '人気物件一覧', popular_list_propertys_path %></td>
+  </tr>
+  <tr>
+  <% if @user.present? %>
+    <% if @user.authority == 1 %>
+      <td><%= link_to '物件登録', new_property_path %></td>
+  <% else %>
+      <td><%= link_to 'お気に入り物件一覧', favorite_list_favorites_path %></td>
+    <% end %>
+  <% end %>
+  </tr>
+</table>
+<br>
+
+<table>
+<% if @propertys.present? %>
+    <tr>
+      <th colspan='1'>投稿者</th>
+      <th colspan='4'>物件写真</th>
+      <th colspan='3'>物件名</th>
+      <th colspan='3'>家賃</th>
+      <th colspan='3'>敷金</th>
+      <th colspan='3'>礼金</th>
+      <th colspan='3'>区</th>
+      <th colspan='3'>広さ(㎡)</th>
+      <th colspan='3'>間取り</th>
+      <th colspan='3'>クリック数</th>
+    </tr>
+  <% @propertys.each do |f| %>
+    <tr>
+      <th colspan='1'><%= f.user.name %></th>
+      <th colspan='4'>
+        <%= link_to property_path(f.id) do %>
+          <%= image_tag(f.image[0].url, size:"60x60") %>
+        <% end %>
+      </th>
+      <th colspan='3'><%= link_to f.name, property_path(f.id) %></th>
+      <th colspan='3'><%= f.rent %></th>
+      <th colspan='3'><%= f.subsidy %></th>
+      <th colspan='3'><%= f.reward %></th>
+      <th colspan='3'><%= f.region %></th>
+      <th colspan='3'><%= f.area %></th>
+      <th colspan='3'><%= f.extent %></th>
+      <th colspan='3'><%= f.impressionist_count %></th>
+    <% unless @user.present? %>
+      <% if f.user_id == current_user.id %>
+        <th>
+          <%= link_to '編集', edit_property_path(f.id), data:{confirm: "物件情報を編集しますか."} %>
+        </th>
+        <th>
+          <%= link_to '削除', property_path(f.id), method: :delete, data:{confirm: "物件を削除しますか."} %>
+        </th>
+      <% end %>
+    <% end %>
+    </tr>
+  <% end %>
+<% else %>
+  <tr>
+    <td colspan='10'><h3>登録された物件がありません。</h3></td>
+  </tr>
+<% end %>
+</table>
