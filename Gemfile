@@ -48,8 +48,9 @@ gem 'carrierwave-ffmpeg'
 
 #반복작업
 gem 'whenever', require: false
-#터보링크
 
+#중복 셀렉터 작업
+gem 'ransack'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'

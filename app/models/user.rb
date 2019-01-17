@@ -13,7 +13,10 @@ class User < ApplicationRecord
   mount_uploader :icon_image, IconImageUploader
   
   has_many :property
-  
   has_many :favorites, dependent: :destroy
+  
+  has_many :noticeboards
+  has_many :questionboard
+  
   
 end

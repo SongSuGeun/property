@@ -1,0 +1,85 @@
+<hr>
+<h1>お知らせ</h1>
+<table>
+  <tr>
+  <% if @user.name == 'admin' %>
+    <td><%= link_to 'お知らせ作成', write_questionboard_boards_path %></td>
+  <% end %>
+  </tr>
+</table>
+<br><hr>
+<table>
+<% if @noticeboards.present? %>
+    <tr>
+      <th colspan='1'>投稿者</th>
+      <th colspan='1'>話題</th>
+      <th colspan='1'>作成日</th>
+    </tr>
+    <br>
+  <% @noticeboards.each do |f| %>
+    <tr>
+      <th><%= f.name %></th>
+      <th><%= link_to f.title, board_path(f.id) %></th>
+      <th><%= f.created_at %></th>
+    <% if (@user.name == 'admin') && (@user.id == current_user.id)%>
+      <th>
+        <%= link_to '編集', edit_property_path(f.id), data:{confirm: "お知らせを編集しますか."} %>
+      </th>
+      <th>
+        <%= link_to '削除', destroy_noticeboards_boards_path(f.id), method: :delete, data:{confirm: "お知らせを削除しますか."} %>
+      </th>
+    <% end %>
+    </tr>
+  <% end %>
+<% else %>
+  <tr>
+    <td colspan='10'><h3>登録されたお知らせがありません。</h3></td>
+  </tr>
+<% end %>
+</table>
+<hr>
+<h1>お問い合わせ</h1>
+<table>
+  <tr>
+  <% if @user.present? %>
+    <td><%= link_to 'お問い合わせ作成', write_questionboard_boards_path %></td>
+  <% end %>
+  </tr>
+</table>
+<br><hr>
+<table>
+<% if @questionboard.present? %>
+    <tr>
+      <th colspan='1'>投稿者</th>
+      <th colspan='1'>話題</th>
+      <th colspan='1'>作成日</th>
+      <th colspan='1'>reply</th>
+    </tr>
+    <br>
+  <% @questionboard.each do |f| %>
+    <tr>
+      <th><%= f.name %></th>
+      <th><%= link_to f.title, question_show_boards_path(id: f.id) %></th>
+      <th><%= f.created_at %></th>
+      <% if f.reply == nil %>
+        <th> X </th>
+      <% else %>
+        <th> O </th>
+      <% end %>
+    <% if f.user_id == current_user.id %>
+      <th>
+        <%= link_to '編集', edit_property_path(f.id), data:{confirm: "お問い合わせを編集しますか."} %>
+      </th>
+      <th>
+        <%= link_to '削除', destroy_questionboard_boards_path(id: f.id), data:{confirm: "お問い合わせを削除しますか."} %>
+      </th>
+    <% end %>
+    </tr>
+  <% end %>
+<% else %>
+  <tr>
+    <td colspan='10'><h3>登録されたお問い合わせがありません。</h3></td>
+  </tr>
+<% end %>
+</table>
+

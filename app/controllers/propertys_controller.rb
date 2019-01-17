@@ -4,7 +4,6 @@ class PropertysController < ApplicationController
   #count++
   impressionist actions: [:show], unique: [:ip_address]
 
-  
   def index
     puts("index 빼에에엠 ")
   end
@@ -40,13 +39,10 @@ class PropertysController < ApplicationController
     @propertys = Property.new(property_params)
     @propertys.user_id = current_user.id
     p @propertys
-    p params[:property][:video]
-    
-    @propertys.video = Rails.root.join("public/#{params[:property][:video]}").open
-    
+    if params[:property][:video] != nil
+      @propertys.video = Rails.root.join("public/#{params[:property][:video]}").open
+    end
     p @propertys.video
-    puts("＄＄＄＄＄＄＄＄  create save＄＄＄＄＄＄＄＄")
-    #@property.video = params[:property][:video]
     if @propertys.save
       puts("good")
       redirect_to list_propertys_path
@@ -63,14 +59,16 @@ class PropertysController < ApplicationController
       @user = User.find(current_user.id)
       p @user
     end
+    
+    @q = Property.ransack(params[:q])
     @propertys = Property.all
   end
   
   def show
     puts("부동산 show 진입")
     @propertys = Property.find(params[:id])
+    @user = User.find(current_user.id)
     @favorite = current_user.favorites.find_by(property_id: @propertys.id)
-    
     p @favorite
   end
   
@@ -84,13 +82,21 @@ class PropertysController < ApplicationController
   def edit
     puts("부동산 edit 진입")
     @propertys = Property.find(params[:id])
+    p @propertys 
   end
   
   def update
-    puts("부동산 update 진입")
+    puts("부동산 update%%%%%%%%%%%%%%%%%%%%%%%%%% 진입")
+    @propertys = Property.find(params[:id])
+    if params[:property][:video] != nil
+      @propertys.video = Rails.root.join("public/#{params[:property][:video]}").open
+    end
+    p @propertys
+    @propertys.update(property_params)
+    redirect_to list_propertys_path
   end
   
-  
+
   private
   
   def property_params

@@ -1,8 +1,8 @@
-
 <script language='javascript'>
 $(document).ready(function(){
   $('#tokyoku').hide();
   $('#oosakaku').hide();
+  
 });
 function tokyo(){
   $('#tokyoku').show();
@@ -26,37 +26,51 @@ function sub(){
      return false;
    }
 };
-
 function GooglemapGuide(){
-  window.open( './googlemap.html','','width=700,height=800,scrollbars=yes,toolbar=no,menubar=no,status=no,resizable=yes')
+  var googlemap_dic = './googlemap.html'
+  <% unless @propertys.id == nil %>
+    googlemap_dic = '../googlemap.html'
+  <% end %>
+  window.open( googlemap_dic ,'','width=790, height=800,scrollbars=yes,toolbar=no,menubar=no,status=no,resizable=yes')
 }
 
 </script>
-<%= form_with(model: @propertys, local: true, url: choose_new_or_edit, method: 'post') do |f| %>
+<%= form_with(model: @propertys, local: true, url: choose_new_or_edit) do |f| %>
 <table>
     <tr>
-      <td><%= f.label :物件イメージ %></td>
-      <td><%= f.file_field :image, :multiple => true %></td>
+      <td ropspan ='2'><%= f.label :物件イメージ %></td>
+      <% if @propertys.image.present? %>
+        <% @propertys.image.each do |image| %>
+          <th><%= image_tag (image.url)%></th>
+        <% end %>
+      <% end %>
+        <td><%= f.file_field :image, :multiple => true, :value => @propertys.image %></td>
     </tr>
+    
     <tr>
-      <td><%= f.label :内部ビデオ %></td>
-      <td><%= f.file_field :video, :multiple => false %></td>
+      <td ropspan ='2'><%= f.label :内部ビデオ %></td>
+      <% if @propertys.video.present? %>
+        <th><%= video_tag @propertys.video.url, autoplay: true, muted: true, controls: true , :size => "350x260"%></th>
+      <% else %>
+        <td>登録されたビデオがありません。</td>
+      <% end %>
+        <td><%= f.file_field :video, :multiple => false, :value => @propertys.video %></td>
     </tr>
     <tr>
       <td><%= f.label :物件名 %></td>
-      <td><%= f.text_field :name %></td>
+      <td><%= f.text_field :name, :value => @propertys.name%></td>
     </tr>
     <tr>
       <td><%= f.label :家賃 %></td>
-      <td><%= f.text_field :rent %></td>
+      <td><%= f.text_field :rent, :value => @propertys.rent %></td>
     </tr>
     <tr>
       <td><%= f.label :敷金 %></td>
-      <td><%= f.select :subsidy, [['なし', 'なし'], ['1っか月', '1っか月'],['2っか月', '2っか月']] %></td>
+      <td><%= f.select :subsidy, [['なし', 'なし'], ['1っか月', '1っか月'],['2っか月', '2っか月']], :selected => @propertys.subsidy, :value => @propertys.reward  %></td>
     </tr>
     <tr>
       <td><%= f.label :礼金 %></td>
-      <td><%= f.select :reward, [['なし', 'なし'], ['1っか月', '1っか月'],['2っか月', '2っか月']] %></td>
+      <td><%= f.select :reward, [['なし', 'なし'], ['1っか月', '1っか月'],['2っか月', '2っか月']], :selected => @propertys.reward, :value => @propertys.reward %></td>
     </tr>
     <tr name = 'country'>
       <td><%= f.label :区 %></td>
@@ -79,21 +93,21 @@ function GooglemapGuide(){
       </td>  
     </tr>
     <tr>
-      <td>位置</td>
-      <td><%= f.label :経度 %><%= f.text_field :longitude, :value => 35.658624 %></td>
+      <td><%= f.label :経度 %></td>
+      <td><%= f.text_field :longitude, :value => @propertys.longitude %></td>
       <td><a onclick='GooglemapGuide()'>経緯と緯度とは？</a></td>
     </tr>
     <tr>
-      <td> </td>
-      <td><%= f.label :緯度 %><%= f.text_field :latitude, :value => 139.745433 %></td>
+      <td><%= f.label :緯度 %></td>
+      <td><%= f.text_field :latitude, :value => @propertys.latitude %></td>
     </tr>
     <tr>
       <td><%= f.label :広さ %>(㎡)</td>
-      <td><%= f.text_field :area %></td>
+      <td><%= f.text_field :area, :value => @propertys.area %></td>
     </tr>
     <tr>
       <td><%= f.label :間取り %></td>
-      <td><%= f.select :extent, [['1R','1R'], ['1K','1K'],['1DK','1DK'],['1LDK','1LDK'],['2K','2K'],['2LDK','2LDK'],['3K','3K'],['3DK','3DK'],['3LDK','3LDK'],['4K','4K']] %></td>
+      <td><%= f.select :extent, [['1R','1R'], ['1K','1K'],['1DK','1DK'],['1LDK','1LDK'],['2K','2K'],['2LDK','2LDK'],['3K','3K'],['3DK','3DK'],['3LDK','3LDK'],['4K','4K']], :selected => @propertys.extent, :value => @propertys.extent %></td>
     </tr>
       <td colspan ='2'>
         <%= f.submit '物件登録', onclick: 'return sub()' %>

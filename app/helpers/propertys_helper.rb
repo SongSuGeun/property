@@ -3,7 +3,7 @@ module PropertysHelper
     if action_name == 'new' || action_name == 'confirm'
       confirm_propertys_path
     elsif action_name == 'edit'
-      edit_property_path
+      property_path
     end
   end
 end

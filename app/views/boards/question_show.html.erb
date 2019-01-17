@@ -1,0 +1,41 @@
+<hr>
+<table>
+  <tr>
+    <td>Name</td>
+    <td><%= @questionboard.name %></td>
+  </tr>
+  <tr>
+    <td>Title</td> 
+    <td><%= @questionboard.title %></td>
+  </tr>
+  <tr>
+    <td>Content</td>
+  </tr>
+  <tr>    
+    <td><%= @questionboard.content %></td>
+  </tr>
+  <tr>
+    <td>reply</td>
+  <% if @user.name == 'admin' %>
+    <%= form_with(model: @questionboard, local: true, url: question_update_boards_path, method: 'post') do |f| %>
+      <% if @questionboard.reply == nil %>
+        <td><%= f.text_field :reply %></td>
+      <% else %>
+        <td><%= f.text_field :reply, value: @questionboard.reply %></td>
+      <% end %>
+      <td><%= f.hidden_field :name, value: @questionboard.name %></td>    
+      <td><%= f.hidden_field :title, value: @questionboard.title %></td>
+      <td><%= f.hidden_field :content, value: @questionboard.content %></td>
+      <td><%= f.hidden_field :id, value: @questionboard.id %></td>
+  </tr>
+  <tr>
+    <td><%= f.submit 'reply登録'%></td>
+  </tr>
+    <% end %>
+  <!-- 로그인한 유저가 운영자가아닐경우  -->
+  <% elsif  @questionboard.reply != nil %>
+    <td><%= @questionboard.reply %></td>
+  <% else %>
+    <td>登録されたreplyがありません。少々お待ちください。</td>
+  <% end %>    
+</table>
