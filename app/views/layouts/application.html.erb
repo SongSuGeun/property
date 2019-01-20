@@ -1,33 +1,51 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>anraku</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+	<head>
+		<title>安楽</title>
+		<%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <!-- <%= javascript_include_tag 'application' %>  -->
-  </head>
-  <nav>
-    <div>
-    <%= link_to (propertys_path) do  %>ホーム<% end %>
-		<% if logged_in? %>
- 		  <%= link_to user_path(current_user.id) do  %>プロフィール<% end %>
-		  <%= link_to session_path(current_user.id), method: :delete do %>ログアウト<% end %>
-		<% else %>
-  		  <%= link_to new_user_path do  %>会員加入<% end %>
-  		  <%= link_to (new_session_path) do  %>ログイン<% end %>
- 		<% end %>
-  		<%= link_to (boards_path) do  %>掲示板<% end %>
-  		<%= link_to (list_propertys_path) do  %>物件一覧<% end %>
-		<% if logged_in? %>  
-		  <%= current_userID.name %>様,ログイン中
-		<% end %>
-    </div>
-  </div>
-</nav>
-<% flash.each do |key, value| %>
-  <%= content_tag(:div, value, class: "#{key}") %>
-<% end %>
-<%= yield %>
-</body>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body>
+				<!-- Header -->
+			<header id="header">
+				<nav class="left">
+					<a href="#menu"><span>Menu</span></a>
+				</nav>
+				<div class="logo"><%= link_to "AN RAKU　(安楽)", propertys_path %></div>
+		    <nav class="right">
+				<% if logged_in? %>  
+			    <%= current_userID.name %>様,ログイン中です。
+		    <% end %>	
+				</nav>
+			</header>
+
+		<!-- Menu -->
+			<nav id="menu">
+				<ul class="links">
+					<li><%= link_to "ホーム", propertys_path %></li>
+		      <% if logged_in? %>
+ 		        <li><%= link_to user_path(current_user.id) do  %>プロフィール<% end %>
+		        <li><%= link_to "ログアウト", logout_path(current_user.id), method: :delete %>
+		      <% else %>
+  		      <li><%= link_to new_user_path do  %>会員加入<% end %>
+  		      <li><%= link_to (new_session_path) do  %>ログイン<% end %>
+ 		      <% end %>
+  		      <li><%= link_to (boards_path) do  %>掲示板<% end %>
+  		      <li><%= link_to (list_propertys_path) do  %>物件一覧<% end %>
+				</ul>
+			</nav>
+  <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+  <% end %>
+  <%= yield %>
+	
+	</body>
 </html>

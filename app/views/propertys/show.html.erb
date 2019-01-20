@@ -18,6 +18,16 @@
 </script>
 <table>
     <tr>
+      <th>
+        物件写真
+      </th>
+    </tr>
+    <tr>
+      <% @propertys.image.each do |image| %>
+        <th>><%= image_tag (image.url) %></th>
+      <% end %>
+    </tr>
+    <tr>
       <th>物件名</th>
       <th><%= @propertys.name %></th>
     </tr>
@@ -28,16 +38,6 @@
     <tr>
         <th>クリック数</th>
         <th><%= @propertys.impressionist_count %></th>
-    </tr>
-    <tr>
-      <th>
-        物件写真
-      </th>
-    </tr>
-    <tr>
-      <% @propertys.image.each do |image| %>
-        <th><%= image_tag (image.url)%></th>
-      <% end %>
     </tr>
     <tr>
       <th>ビデオ</th>

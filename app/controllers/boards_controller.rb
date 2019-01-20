@@ -1,20 +1,22 @@
 class BoardsController < ApplicationController
+  before_action:checkSession
+  before_action:user_have_current, only: [:index, :write_noticeboards, :write_questionboard, :question_show]
   
   def index
     puts("부동산 noticeboards 진입")
-    @user = User.find(current_user.id)
+    #@user = User.find(current_user.id)
     @noticeboards = Noticeboard.all
     @questionboard = Questionboard.all
   end
   
   def write_noticeboards
     @user = User.find(current_user.id)
-    @noticeboards = Noticeboard.new
+    #@noticeboards = Noticeboard.new
   end
   
   def write_questionboard
     puts("부동산 write_questionboard 진입")
-    @user = User.find(current_user.id)
+    #@user = User.find(current_user.id)
     @questionboard = Questionboard.new
   end
   
@@ -45,8 +47,7 @@ class BoardsController < ApplicationController
   
   def question_show
     @questionboard = Questionboard.find(params[:id])
-    p @questionboard
-    @user = User.find(current_user.id)
+    #@user = User.find(current_user.id)
   end
   
   def question_update

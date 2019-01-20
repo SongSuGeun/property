@@ -2,7 +2,6 @@
 $(document).ready(function(){
   $('#tokyoku').hide();
   $('#oosakaku').hide();
-  
 });
 function tokyo(){
   $('#tokyoku').show();
@@ -12,19 +11,45 @@ function oosaka(){
   $('#oosakaku').show();
   $('#tokyoku').hide();
 };
+
 function sub(){
-   if($('#injapanTOKYO').is(':checked')) {
-     $('#oosakaku').remove();
-     return true;
-   }
-   else if($('#injapanOOSAKA').is(':checked')){
-     $('#tokyoku').remove();
-     return true;
-   }
-   else{
-     alert("地域を選択してください。"); 
-     return false;
-   }
+  if($("#image").val() === null || $("#image").val() == ''){  
+    alert("物件イメージは最低一枚登録してください。")
+    return false;
+  }  
+  else if($("#name").val() == null || $("#name").val() == ''){  
+    alert("物件名を入力してください。")
+    return false;
+  }
+  else if($("#rent").val() == null || $("#rent").val() == ''){  
+    alert("家賃を入力してください。")
+    return false;
+  }
+  else if(!$("#injapanTOKYO").is(':checked') && !$("#injapanOOSAKA").is(':checked')){
+    alert("地域を選択してください。"); 
+    return false;
+  }
+  else if($("#longitude").val() == null || $("#longitude").val() == ''){  
+    alert("経度を入力してください。")
+    return false;
+  }
+  else if($("#latitude").val() == null || $("#latitude ").val() == ''){  
+    alert("緯度を入力してください。")
+    return false;
+  }
+  else if($("#area").val() == null || $("#area").val() == ''){  
+    alert("広さを入力してください。")
+    return false;
+  }
+  
+  if($('#injapanTOKYO').is(':checked')) {
+    $('#oosakaku').remove();
+    return true;
+  }
+  else if($('#injapanOOSAKA').is(':checked')){
+    $('#tokyoku').remove();
+    return true;
+  }
 };
 function GooglemapGuide(){
   var googlemap_dic = './googlemap.html'
@@ -33,9 +58,18 @@ function GooglemapGuide(){
   <% end %>
   window.open( googlemap_dic ,'','width=790, height=800,scrollbars=yes,toolbar=no,menubar=no,status=no,resizable=yes')
 }
-
 </script>
-<%= form_with(model: @propertys, local: true, url: choose_new_or_edit) do |f| %>
+<% if @propertys.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @propertys.errors.count %>件のエラーがあります。</h2>
+      <ul>
+      <% @propertys.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+<% end %>
+<%= form_with(model: @propertys, local: true, url: choose_new_or_edit, name: "Form") do |f| %>
 <table>
     <tr>
       <td ropspan ='2'><%= f.label :物件イメージ %></td>
@@ -44,25 +78,23 @@ function GooglemapGuide(){
           <th><%= image_tag (image.url)%></th>
         <% end %>
       <% end %>
-        <td><%= f.file_field :image, :multiple => true, :value => @propertys.image %></td>
+        <td><%= f.file_field :image, :multiple => true, :value => @propertys.image, :id => "image" %></td>
     </tr>
-    
     <tr>
       <td ropspan ='2'><%= f.label :内部ビデオ %></td>
       <% if @propertys.video.present? %>
         <th><%= video_tag @propertys.video.url, autoplay: true, muted: true, controls: true , :size => "350x260"%></th>
       <% else %>
-        <td>登録されたビデオがありません。</td>
-      <% end %>
         <td><%= f.file_field :video, :multiple => false, :value => @propertys.video %></td>
+      <% end %>
     </tr>
     <tr>
       <td><%= f.label :物件名 %></td>
-      <td><%= f.text_field :name, :value => @propertys.name%></td>
+      <td><%= f.text_field :name, :value => @propertys.name, :id => "name" %></td>
     </tr>
     <tr>
       <td><%= f.label :家賃 %></td>
-      <td><%= f.text_field :rent, :value => @propertys.rent %></td>
+      <td><%= f.text_field :rent, :value => @propertys.rent , :id => "rent" %></td>
     </tr>
     <tr>
       <td><%= f.label :敷金 %></td>
@@ -72,7 +104,7 @@ function GooglemapGuide(){
       <td><%= f.label :礼金 %></td>
       <td><%= f.select :reward, [['なし', 'なし'], ['1っか月', '1っか月'],['2っか月', '2っか月']], :selected => @propertys.reward, :value => @propertys.reward %></td>
     </tr>
-    <tr name = 'country'>
+    <tr name = 'country' id = 'country'>
       <td><%= f.label :区 %></td>
       <td><input type="radio" onclick = 'tokyo()' name = "injapan" id = "injapanTOKYO">東京</td>
       <td><input type="radio" onclick = 'oosaka()' name = "injapan" id = "injapanOOSAKA">大阪</td>
@@ -94,16 +126,16 @@ function GooglemapGuide(){
     </tr>
     <tr>
       <td><%= f.label :経度 %></td>
-      <td><%= f.text_field :longitude, :value => @propertys.longitude %></td>
+      <td><%= f.text_field :longitude, :value => @propertys.longitude, :id => "longitude" %></td>
       <td><a onclick='GooglemapGuide()'>経緯と緯度とは？</a></td>
     </tr>
     <tr>
       <td><%= f.label :緯度 %></td>
-      <td><%= f.text_field :latitude, :value => @propertys.latitude %></td>
+      <td><%= f.text_field :latitude, :value => @propertys.latitude, :id => "latitude" %></td>
     </tr>
     <tr>
       <td><%= f.label :広さ %>(㎡)</td>
-      <td><%= f.text_field :area, :value => @propertys.area %></td>
+      <td><%= f.text_field :area, :value => @propertys.area, :id => "area" %></td>
     </tr>
     <tr>
       <td><%= f.label :間取り %></td>

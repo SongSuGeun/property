@@ -1,11 +1,13 @@
 class PropertysController < ApplicationController
-  before_action:checkSession, only: [:new, :edit, :show, :destroy, :list]
-
+  before_action:checkSession, only: [ :new, :edit, :show, :destroy, :list, :googlema,:popular_list, :confirm]
+  before_action:user_have_current, only: [:list, :show]
+  
   #count++
   impressionist actions: [:show], unique: [:ip_address]
 
   def index
-    puts("index 빼에에엠 ")
+    puts("index 빼에에엠")
+  
   end
   
   def googlemap
@@ -55,11 +57,6 @@ class PropertysController < ApplicationController
   
   def list
     puts("list 빼에에엠 ")
-    if current_user.present?
-      @user = User.find(current_user.id)
-      p @user
-    end
-    
     @q = Property.ransack(params[:q])
     @propertys = Property.all
   end
@@ -67,7 +64,7 @@ class PropertysController < ApplicationController
   def show
     puts("부동산 show 진입")
     @propertys = Property.find(params[:id])
-    @user = User.find(current_user.id)
+    #@user = User.find(current_user.id)
     @favorite = current_user.favorites.find_by(property_id: @propertys.id)
     p @favorite
   end
@@ -103,10 +100,6 @@ class PropertysController < ApplicationController
     params.require(:property).permit({image: []}, :video, :image_cache, :name, :rent, :subsidy, :reward, :region, :area, :extent, :longitude, :latitude)
   end
   
-  def checkSession
-    if !(session[:user_id])
-      redirect_to new_session_path, notice:'loginしてください。'
-    end 
-  end
+
   
 end

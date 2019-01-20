@@ -19,9 +19,6 @@
       <td><%= f.hidden_field :image_cache %></td>
     </tr>
     <tr>
-      <td>物件イメージ</td>
-    </tr>
-    <tr>
       <% if @propertys.video? %>
         <td><%= video_tag @propertys.video.url, autoplay: true, muted: true, controls: true , :size => "350x260"%></td>
         <%= f.hidden_field :video, :value => @propertys.video.url %>

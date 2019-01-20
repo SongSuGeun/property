@@ -1,7 +1,6 @@
 class SessionsController < ApplicationController
  
   def new
-    puts('세션 뉴 진입')
   end
   
   def create
@@ -10,16 +9,14 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to user_path(user.id)
     else
-      # ログイン失敗した場合
-      flash.now[:danger] = 'ログインに失敗しました'
+      flash.now[:danger] = 'ログイン情報が間違います。'
       render 'new'
     end
   end
 
   def destroy 
-    puts("디스트로이 진입")
+    puts("@@@@@@@@@@@@@@@@@@@@@@@")
     log_out
-    #flash[:notice] = 'ログアウトしました'
     redirect_to new_session_path
   end
   

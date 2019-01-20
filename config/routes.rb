@@ -39,9 +39,9 @@ Rails.application.routes.draw do
       post :favorite_list
     end
   end
-  # get 'logout' , to: 'sessions#destroy', via: 'delete'
   
-    get 'propertys/search' => 'propertys#search'
-    get 'searches/result'
-    get 'searches/many_result'
+  get 'logout' , to: 'sessions#destroy', via: 'delete'
+  get 'propertys/search' => 'propertys#search'
+  get 'searches/result'
+  get 'searches/many_result'
 end
