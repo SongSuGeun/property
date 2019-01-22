@@ -1,6 +1,6 @@
 class BoardsController < ApplicationController
   before_action:checkSession
-  before_action:user_have_current, only: [:index, :write_noticeboards, :write_questionboard, :question_show]
+  before_action:user_have_current, only: [:index, :write_noticeboards, :write_questionboard, :question_show, :edit]
   
   def index
     puts("부동산 noticeboards 진입")
@@ -10,18 +10,18 @@ class BoardsController < ApplicationController
   end
   
   def write_noticeboards
-    @user = User.find(current_user.id)
-    #@noticeboards = Noticeboard.new
+    puts("write_noticeboards 진입")
+    @noticeboards = Noticeboard.new
   end
   
   def write_questionboard
-    puts("부동산 write_questionboard 진입")
+    puts(" write_questionboard 진입")
     #@user = User.find(current_user.id)
     @questionboard = Questionboard.new
   end
   
   def create_notice
-    puts("부동산 create 진입")
+    puts("create_notice 진입")
     @noticeboards = Noticeboard.new(notice_params)
     p @noticeboards
     if @noticeboards.save
@@ -33,7 +33,7 @@ class BoardsController < ApplicationController
   end
   
   def create_question
-    puts("부동산 create 진입")
+    puts("create_question진입")
     @questionboard = Questionboard.new(question_params)
     @questionboard.user_id = current_user.id
     p @questionboard
@@ -50,10 +50,23 @@ class BoardsController < ApplicationController
     #@user = User.find(current_user.id)
   end
   
+  def edit 
+    @noticeboards = Noticeboard.find(params[:id])
+  end
+  
+  def notice_update
+    p params[:noticeboard][:id]
+    @noticeboards = Noticeboard.find(params[:noticeboard][:id])
+    if @noticeboards.update(notice_params)
+      redirect_to boards_path
+    else
+      redirect_to boards_path
+    end 
+  end
+  
   def question_update
-    puts("부동산 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 진입")
-    p params[:id]
-    @questionboard = Questionboard.find(params[:id])
+    p params[:questionboard][:id]
+    @questionboard = Questionboard.find(params[:questionboard][:id])
     p @questionboard
     if @questionboard.update(question_params)
       redirect_to boards_path
@@ -61,6 +74,7 @@ class BoardsController < ApplicationController
       redirect_to boards_path
     end 
   end
+  
   
   def questionboard
     puts("부동산 questionboard 진입")
@@ -72,14 +86,13 @@ class BoardsController < ApplicationController
   end
   
   def destroy_noticeboards
-    puts("부동산$$$$$$$$$$진입")
     @noticeboard = Noticeboard.find(params[:id])
-    @questionboard.destroy
+    p @noticeboard
+    @noticeboard.destroy
     redirect_to boards_path
   end
   
   def destroy_questionboard
-    puts("부동산***********진입")
     @questionboard = Questionboard.find(params[:id])
     @questionboard.destroy
     redirect_to boards_path

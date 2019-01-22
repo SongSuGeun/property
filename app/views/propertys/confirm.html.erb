@@ -19,6 +19,9 @@
       <td><%= f.hidden_field :image_cache %></td>
     </tr>
     <tr>
+      <td>ビデオ</td>
+    </tr>
+    <tr>
       <% if @propertys.video? %>
         <td><%= video_tag @propertys.video.url, autoplay: true, muted: true, controls: true , :size => "350x260"%></td>
         <%= f.hidden_field :video, :value => @propertys.video.url %>
@@ -63,6 +66,9 @@
       <td>位置</td>
       <td>経度<%= @propertys.longitude %></td>
       <td><%= f.hidden_field :longitude, value: @propertys.longitude %></td>
+    </tr>
+    <tr>
+      <td> </td>
       <td>緯度<%= @propertys.latitude %></td>
       <td><%= f.hidden_field :latitude, value: @propertys.latitude %></td>
     </tr>

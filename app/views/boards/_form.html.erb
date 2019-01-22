@@ -1,0 +1,20 @@
+<%= form_with(model: @noticeboards, local: true, url: choose_notice_new_or_edit, method: 'post') do |f| %>
+<table>
+  <tr>
+    <td><%= f.label :Name %></td>
+    <td><%= f.text_field :name, :value => @user.name , :readonly => true %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :Title %></td> 
+    <td><%= f.text_field :title , :value => @noticeboards.title %></td>
+  </tr>
+  <tr>
+    <td><%= f.label :Content %></td> 
+    <td><%= f.text_area(:content, size: '50x10', :class => 'text_area', :value => @noticeboards.content ) %></td>
+  </tr>
+  <tr>
+    <td><%= f.submit 'お知らせ作成' %></td>
+    <td><%= f.hidden_field :id, :value => @noticeboards.id %></td>
+  </tr> 
+</table>
+<% end %>

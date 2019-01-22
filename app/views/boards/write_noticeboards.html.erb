@@ -1,20 +1,2 @@
 <h1>お知らせ作成</h1>
-<%= form_with(model: @noticeboards, local: true, url: create_notice_boards_path, method: 'post') do |f| %>
-<table>
-  <tr>
-    <td><%= f.label :Name %></td> 
-    <td><%= f.text_field :name, :value => @user.name , :readonly => true %></td>
-  </tr>
-  <tr>
-    <td><%= f.label :Title %></td> 
-    <td><%= f.text_field :title %></td>
-  </tr>
-  <tr>
-    <td><%= f.label :Content %></td> 
-    <td><%= f.text_area(:content, size: '50x10', :class => 'text_area') %></td>
-  </tr>
-  <tr>
-    <td><%= f.submit %></td>
-  </tr>  
-</table>
-<% end %>
+<%= render 'form'%>

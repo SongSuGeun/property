@@ -3,7 +3,7 @@ class User < ApplicationRecord
   validates:email, presence:true, length:{ maximum:255 },
                   format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   validates :email, uniqueness: true, allow_nil: true
-  
+  validates :icon_image, presence:true
   has_secure_password
   validates :password, presence: true, length: { minimum:3 }
   

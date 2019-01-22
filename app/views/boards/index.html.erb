@@ -3,7 +3,7 @@
 <table>
   <tr>
   <% if @user.name == 'admin' %>
-    <td><%= link_to 'お知らせ作成', write_questionboard_boards_path %></td>
+    <td><%= link_to 'お知らせ作成', write_noticeboards_boards_path %></td>
   <% end %>
   </tr>
 </table>
@@ -21,12 +21,12 @@
       <th><%= f.name %></th>
       <th><%= link_to f.title, board_path(f.id) %></th>
       <th><%= f.created_at %></th>
-    <% if (@user.name == 'admin') && (@user.id == current_user.id)%>
+    <% if (@user.name == 'admin') && (@user.id == current_user.id) %>
       <th>
-        <%= link_to '編集', edit_property_path(f.id), data:{confirm: "お知らせを編集しますか."} %>
+        <%= link_to '編集', edit_board_path(f.id), data:{confirm: "お知らせを編集しますか."} %>
       </th>
       <th>
-        <%= link_to '削除', destroy_noticeboards_boards_path(f.id), method: :delete, data:{confirm: "お知らせを削除しますか."} %>
+        <%= link_to '削除', destroy_noticeboards_boards_path(id: f.id), data:{confirm: "お知らせを削除しますか."} %>
       </th>
     <% end %>
     </tr>
@@ -67,9 +67,7 @@
         <th> O </th>
       <% end %>
     <% if f.user_id == current_user.id %>
-      <th>
-        <%= link_to '編集', edit_property_path(f.id), data:{confirm: "お問い合わせを編集しますか."} %>
-      </th>
+      <%# <th><%= link_to '編集', question_update_boards_path(id: f.id), data:{confirm: "お問い合わせを編集しますか."} </th>%>
       <th>
         <%= link_to '削除', destroy_questionboard_boards_path(id: f.id), data:{confirm: "お問い合わせを削除しますか."} %>
       </th>

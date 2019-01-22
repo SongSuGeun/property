@@ -60,14 +60,14 @@ function GooglemapGuide(){
 }
 </script>
 <% if @propertys.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= @propertys.errors.count %>件のエラーがあります。</h2>
-      <ul>
-      <% @propertys.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+  <div id="error_explanation">
+    <h2><%= pluralize(@propertys.errors.count, "error") %> prohibited this @user from being saved:</h2>
+    <ul>
+    <% @propertys.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
 <% end %>
 <%= form_with(model: @propertys, local: true, url: choose_new_or_edit, name: "Form") do |f| %>
 <table>
@@ -104,21 +104,21 @@ function GooglemapGuide(){
       <td><%= f.label :礼金 %></td>
       <td><%= f.select :reward, [['なし', 'なし'], ['1っか月', '1っか月'],['2っか月', '2っか月']], :selected => @propertys.reward, :value => @propertys.reward %></td>
     </tr>
-    <tr name = 'country' id = 'country'>
+    <tr name='country' id='country'>
       <td><%= f.label :区 %></td>
-      <td><input type="radio" onclick = 'tokyo()' name = "injapan" id = "injapanTOKYO">東京</td>
-      <td><input type="radio" onclick = 'oosaka()' name = "injapan" id = "injapanOOSAKA">大阪</td>
+      <td><input type="radio" onclick='tokyo()' name = "injapan" id = "injapanTOKYO">東京</td>
+      <td><input type="radio" onclick='oosaka()' name = "injapan" id = "injapanOOSAKA">大阪</td>
     </tr>
     <tr>
       <td>　</td>
       <td>
-        <div id = 'tokyoku'>
+        <div id='tokyoku'>
           <%= f.select :region, [['千代田','千代田'],['中央','中央'],['港','港'],['新宿','新宿'],['文京','文京'],['台東','台東'],['渋谷','渋谷'],['世田谷','世田谷'],['中野','中野'],
             ['品川','品川'],['目黒','目黒'],['墨田','墨田'],['北','北'],['練馬','練馬'],['荒川','荒川'],['杉並','杉並'],['江戸川','江戸川'],['豊島','豊島']], :id => "tokyokuselect",:name => "tokyokuselect" %>
         </div>
       </td>
       <td>
-        <div id = 'oosakaku'>
+        <div id='oosakaku'>
           <%= f.select :region, [['此花','此花'],['鶴見','鶴見'],['阿倍野','阿倍野'],['旭區','旭區'],['浪速','浪速'],['西','西'],['西成','西成'],['生野','生野'],['城東','城東'],['西成','西成'],['西淀川','西淀川'],['中央','中央'],['福島','福島'],
             ['大正','大正'],['天王寺','天王寺'],['東成','東成'],['東住吉','東住吉'],['都島','都島'],['東淀川','東淀川'],['平野','平野'],['住之江','住之江'],['住吉','住吉']],:id => "oosakakuselect",:name => "oosakakuselect" %>
         </div>

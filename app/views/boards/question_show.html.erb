@@ -2,35 +2,43 @@
 <table>
   <tr>
     <td>Name</td>
+  </tr>
+  <tr>
     <td><%= @questionboard.name %></td>
   </tr>
   <tr>
-    <td>Title</td> 
+    <td>Title</td>
+  </tr>  
+  <tr>
     <td><%= @questionboard.title %></td>
   </tr>
   <tr>
-    <td>Content</td>
+    <td colspan='2'>Content</td>
   </tr>
   <tr>    
-    <td><%= @questionboard.content %></td>
+    <td colspan='2'><%= @questionboard.content %></td>
   </tr>
   <tr>
-    <td>reply</td>
+    <td colspan='2'>reply</td>
+  </tr>
   <% if @user.name == 'admin' %>
     <%= form_with(model: @questionboard, local: true, url: question_update_boards_path, method: 'post') do |f| %>
       <% if @questionboard.reply == nil %>
-        <td><%= f.text_field :reply %></td>
+      <tr>
+        <td colspan='2'><%= f.text_field :reply %></td>
+      </tr>
       <% else %>
+      <tr>  
         <td><%= f.text_field :reply, value: @questionboard.reply %></td>
+      </tr>
       <% end %>
       <td><%= f.hidden_field :name, value: @questionboard.name %></td>    
       <td><%= f.hidden_field :title, value: @questionboard.title %></td>
       <td><%= f.hidden_field :content, value: @questionboard.content %></td>
       <td><%= f.hidden_field :id, value: @questionboard.id %></td>
-  </tr>
-  <tr>
-    <td><%= f.submit 'reply登録'%></td>
-  </tr>
+      <tr>
+        <td><%= f.submit 'reply登録'%></td>
+      </tr>
     <% end %>
   <!-- 로그인한 유저가 운영자가아닐경우  -->
   <% elsif  @questionboard.reply != nil %>

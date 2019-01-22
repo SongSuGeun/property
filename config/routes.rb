@@ -13,7 +13,7 @@ Rails.application.routes.draw do
      end
   end
   
-  resources :boards , only:[:index, :show, :destroy] do
+  resources :boards , only:[:index, :show, :edit] do
     collection do
       post :create_notice
       post :create_question
@@ -21,11 +21,12 @@ Rails.application.routes.draw do
       get :write_noticeboards
       get :write_questionboard
     
-      #get :question_update
-      post :notice_update
       post :question_update
-      get :question_show
+      get :notice_update
+      post :notice_update
       
+      get :question_show
+
       get :destroy_noticeboards
       get :destroy_questionboard
     end
