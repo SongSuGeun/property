@@ -3,7 +3,8 @@ class PropertysController < ApplicationController
   before_action:user_have_current, only: [:list, :show]
   
   #count++
-  impressionist actions: [:show], unique: [:ip_address]
+  impressionist actions: [:show]
+  #, unique: [:ip_address]
 
   def index
     puts("index 빼에에엠")

@@ -2,26 +2,22 @@ class BoardsController < ApplicationController
   before_action:checkSession
   before_action:user_have_current, only: [:index, :write_noticeboards, :write_questionboard, :question_show, :edit]
   
+  
+  
   def index
-    puts("부동산 noticeboards 진입")
-    #@user = User.find(current_user.id)
     @noticeboards = Noticeboard.all
     @questionboard = Questionboard.all
   end
   
   def write_noticeboards
-    puts("write_noticeboards 진입")
     @noticeboards = Noticeboard.new
   end
   
   def write_questionboard
-    puts(" write_questionboard 진입")
-    #@user = User.find(current_user.id)
     @questionboard = Questionboard.new
   end
   
   def create_notice
-    puts("create_notice 진입")
     @noticeboards = Noticeboard.new(notice_params)
     p @noticeboards
     if @noticeboards.save
@@ -33,7 +29,6 @@ class BoardsController < ApplicationController
   end
   
   def create_question
-    puts("create_question진입")
     @questionboard = Questionboard.new(question_params)
     @questionboard.user_id = current_user.id
     p @questionboard
@@ -47,7 +42,6 @@ class BoardsController < ApplicationController
   
   def question_show
     @questionboard = Questionboard.find(params[:id])
-    #@user = User.find(current_user.id)
   end
   
   def edit 
@@ -77,7 +71,6 @@ class BoardsController < ApplicationController
   
   
   def questionboard
-    puts("부동산 questionboard 진입")
   end
   
   def show
