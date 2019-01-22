@@ -1,0 +1,24 @@
+ja:
+  activerecord:
+    models:
+      property: "不動産"
+      user: "ユーザー"
+    attributes:
+      property:
+        name: "タイトル"
+        rent: "家賃"
+        subsidy: "敷金"
+        reward: "礼金"
+        area: "区"
+        extent: "間取り"
+        image: "イメージ"
+        video: "ビデオ"
+        longitude: "経度"
+        latitude: "緯度"
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        current_password: "現在のパスワード"
+        password: "パスワード"
+        password_confirmation: "確認用パスワード"
+        remember_me: "ログインを記憶"
