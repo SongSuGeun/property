@@ -15,10 +15,11 @@ class Property < ApplicationRecord
   mount_uploader :video, VideoUploader
   #validates_presence_of
   
-  is_impressionable
-  
-  has_many :impressions, :as=>:impressionable
 
+  #is_impressionable
+  has_many :impressions, :as=>:impressionable
+  #is_impressionable :counter_cache => true
+  is_impressionable counter_cache: true
   #, :unique => true
   
   belongs_to :user

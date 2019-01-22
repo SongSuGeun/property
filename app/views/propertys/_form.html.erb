@@ -49,22 +49,21 @@ function sub(){
 
   var re = /^[1-9]+$/;
   if(!re.test(rent.value)) {
-    alert("야칭엔 정상적인 숫자만 넣으셔야 합니다.");
+    alert("家賃欄に正常数を入れてください。");
     return false;
   }
   else if(!re.test(longitude.value)) {
-    alert("경도엔 숫자만 넣으셔야 합니다.");
+    alert("経度欄に正常数を入れてください。");
     return false;
   }
   else if(!re.test(latitude.value)) {
-    alert("위도엔 숫자만 넣으셔야 합니다.");
+    alert("緯度欄に正常数を入れてください。");
     return false;
   }
   else if(!re.test(area.value)) {
-    alert("넓이엔 숫자만 넣으셔야 합니다.");
+    alert("広さ欄に正常数を入れてください。");
     return false;
   }
-
   if($('#injapanTOKYO').is(':checked')) {
     $('#oosakaku').remove();
     return true;

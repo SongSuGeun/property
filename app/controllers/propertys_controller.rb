@@ -8,21 +8,20 @@ class PropertysController < ApplicationController
 
   def index
     puts("index 빼에에엠")
-  
   end
   
   def googlemap
-    puts("googlemap_guide 진입 빼에에엠 ")
     render :layout => false
   end
   
   def popular_list
     puts("popular_list 진입 빼에에엠 ")
-    @propertys = Property.order("impressions_count DESC")
+    @propertys = Property.order('impressions_count DESC').take(3)
+    #impressionist_count
+    p @propertys
   end
 
   def new
-    puts("부도상new 빼에에엠================================")
     if params[:back]
       @propertys = Property.new(property_params)
     else
@@ -67,6 +66,8 @@ class PropertysController < ApplicationController
     @propertys = Property.find(params[:id])
     #@user = User.find(current_user.id)
     @favorite = current_user.favorites.find_by(property_id: @propertys.id)
+    
+    
     p @favorite
   end
   
