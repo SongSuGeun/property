@@ -2719,7 +2719,7 @@
 				}
 
 					#header nav a[href="#menu"]:before {
-						content: "";
+						content: "MENU";
 						-moz-osx-font-smoothing: grayscale;
 						-webkit-font-smoothing: antialiased;
 						font-family: FontAwesome;
