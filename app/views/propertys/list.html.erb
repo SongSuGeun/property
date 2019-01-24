@@ -24,14 +24,14 @@
     <tr>
       <th colspan='1'>投稿者</th>
       <th colspan='4'>物件写真</th>
-      <th colspan='3'>物件名</th>
-      <th colspan='3'>家賃</th>
-      <th colspan='3'>敷金</th>
-      <th colspan='3'>礼金</th>
-      <th colspan='3'>区</th>
-      <th colspan='3'>広さ(㎡)</th>
-      <th colspan='3'>間取り</th>
-      <th colspan='3'>クリック数</th>
+      <th>物件名</th>
+      <th>家賃</th>
+      <th>敷金</th>
+      <th>礼金</th>
+      <th>区</th>
+      <th>広さ(㎡)</th>
+      <th>間取り</th>
+      <th>クリック数</th>
     </tr>
   <% @propertys.each do |f| %>
     <tr>
@@ -41,14 +41,14 @@
           <%= image_tag(f.image[0].url, size:"60x60") %>
         <% end %>
       </th>
-      <th colspan='3'><%= link_to f.name, property_path(f.id) %></th>
-      <th colspan='3'><%= f.rent %></th>
-      <th colspan='3'><%= f.subsidy %></th>
-      <th colspan='3'><%= f.reward %></th>
-      <th colspan='3'><%= f.region %></th>
-      <th colspan='3'><%= f.area %></th>
-      <th colspan='3'><%= f.extent %></th>
-      <th colspan='3'><%= f.impressionist_count %></th>
+      <th><%= link_to f.name, property_path(f.id) %></th>
+      <th><%= f.rent %></th>
+      <th><%= f.subsidy %></th>
+      <th><%= f.reward %></th>
+      <th><%= f.region %></th>
+      <th><%= f.area %></th>
+      <th><%= f.extent %></th>
+      <th><%= f.impressionist_count %></th>
       <% if f.user_id == current_user.id %>
         <th>
           <%= link_to '編集', edit_property_path(f.id), data:{confirm: "物件情報を編集しますか."} %>
