@@ -51,7 +51,8 @@ gem 'whenever', require: false
 
 #중복 셀렉터 작업
 gem 'ransack'
-
+#seed뺴오기
+gem 'seed_dump'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
