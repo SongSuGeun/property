@@ -2,8 +2,6 @@ class BoardsController < ApplicationController
   before_action:checkSession
   before_action:user_have_current, only: [:index, :write_noticeboards, :write_questionboard, :question_show, :edit]
   
-  
-  
   def index
     @noticeboards = Noticeboard.all
     @questionboard = Questionboard.all
@@ -24,7 +22,7 @@ class BoardsController < ApplicationController
       redirect_to boards_path
     else
       logger.debug @noticeboards.errors.inspect
-      redirect_to boards_path
+      redirect_to write_noticeboards_boards_path
     end
   end
   
@@ -36,7 +34,8 @@ class BoardsController < ApplicationController
       redirect_to boards_path
     else
       logger.debug @questionboard.errors.inspect
-      redirect_to boards_path
+      
+      redirect_to write_questionboard_boards_path
     end
   end
   
@@ -54,7 +53,7 @@ class BoardsController < ApplicationController
     if @noticeboards.update(notice_params)
       redirect_to boards_path
     else
-      redirect_to boards_path
+      redirect_to write_noticeboards_boards_path
     end 
   end
   

@@ -1,3 +1,13 @@
+<% if @noticeboards.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@noticeboards.errors.count, "error") %> prohibited this @noticeboards from being saved:</h2>
+    <ul>
+    <% @noticeboards.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
 <%= form_with(model: @noticeboards, local: true, url: choose_notice_new_or_edit, method: 'post') do |f| %>
 <table>
   <tr>

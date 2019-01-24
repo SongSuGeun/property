@@ -1,5 +1,6 @@
 <hr>
 <h1>お知らせ</h1>
+
 <table>
   <tr>
   <% if @user.name == 'admin' %>
@@ -21,7 +22,7 @@
       <th><%= f.name %></th>
       <th><%= link_to f.title, board_path(f.id) %></th>
       <th><%= f.created_at %></th>
-    <% if (@user.name == 'admin') && (@user.id == current_user.id) %>
+    <% if @user.name == 'admin' %>
       <th>
         <%= link_to '編集', edit_board_path(f.id), data:{confirm: "お知らせを編集しますか."} %>
       </th>
