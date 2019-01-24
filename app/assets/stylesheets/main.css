@@ -2859,7 +2859,7 @@
 		}
 
 			#menu .close:before {
-				content: "MENU";
+				content: "MENU!";
 				color: #f6755e;
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
