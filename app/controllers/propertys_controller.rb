@@ -94,5 +94,4 @@ class PropertysController < ApplicationController
   end
   
 
-  
 end

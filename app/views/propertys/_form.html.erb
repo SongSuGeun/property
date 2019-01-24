@@ -146,11 +146,7 @@ function GooglemapGuide(){
         </div>
       </td>  
     </tr>
-    <tr>
-      <td><%= f.label :経度 %></td>
-      <td><%= f.text_field :longitude, :value => @propertys.longitude, :id => "longitude" %></td>
-      <td><a onclick='GooglemapGuide()'>経緯と緯度とは？</a></td>
-    </tr>
+   
     <tr>
       <td><%= f.label :緯度 %></td>
       <td><%= f.text_field :latitude, :value => @propertys.latitude, :id => "latitude" %></td>
