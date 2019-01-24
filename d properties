@@ -1,0 +1,19 @@
+                     List of relations
+ Schema |         Name          |   Type   |     Owner      
+--------+-----------------------+----------+----------------
+ public | ar_internal_metadata  | table    | nyipeoryvfccyj
+ public | favorites             | table    | nyipeoryvfccyj
+ public | favorites_id_seq      | sequence | nyipeoryvfccyj
+ public | impressions           | table    | nyipeoryvfccyj
+ public | impressions_id_seq    | sequence | nyipeoryvfccyj
+ public | noticeboards          | table    | nyipeoryvfccyj
+ public | noticeboards_id_seq   | sequence | nyipeoryvfccyj
+ public | properties            | table    | nyipeoryvfccyj
+ public | properties_id_seq     | sequence | nyipeoryvfccyj
+ public | questionboards        | table    | nyipeoryvfccyj
+ public | questionboards_id_seq | sequence | nyipeoryvfccyj
+ public | schema_migrations     | table    | nyipeoryvfccyj
+ public | users                 | table    | nyipeoryvfccyj
+ public | users_id_seq          | sequence | nyipeoryvfccyj
+(14 rows)
+
