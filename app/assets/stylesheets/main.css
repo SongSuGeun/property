@@ -2720,6 +2720,7 @@
 
 					#header nav a[href="#menu"]:before {
 						content: "MENU";
+					    color: #f6755e;
 						-moz-osx-font-smoothing: grayscale;
 						-webkit-font-smoothing: antialiased;
 						font-family: FontAwesome;
@@ -2858,7 +2859,8 @@
 		}
 
 			#menu .close:before {
-				content: "";
+				content: "MENU";
+				color: #f6755e;
 				-moz-osx-font-smoothing: grayscale;
 				-webkit-font-smoothing: antialiased;
 				font-family: FontAwesome;

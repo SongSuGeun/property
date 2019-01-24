@@ -12,8 +12,6 @@ function oosaka(){
   $('#tokyoku').hide();
 };
 
-
-
 function sub(){
   if($("#image").val() === null || $("#image").val() == ''){  
     alert("物件イメージは最低一枚登録してください。")
@@ -49,7 +47,7 @@ function sub(){
   var latitude = document.getElementById('latitude');
   var area = document.getElementById('area');
 
-  var re = /^[1-9]+$/;
+  var re = /^[1.0-9.0]+$/;
   if(!re.test(rent.value)) {
     alert("家賃欄に正常数を入れてください。");
     return false;
@@ -137,8 +135,8 @@ function GooglemapGuide(){
       <td>　</td>
       <td>
         <div id='tokyoku'>
-          <%= f.select :region, [['千代田','千代田'],['中央','中央'],['港','港'],['新宿','新宿'],['文京','文京'],['台東','台東'],['渋谷','渋谷'],['世田谷','世田谷'],['中野','中野'],
-            ['品川','品川'],['目黒','目黒'],['墨田','墨田'],['北','北'],['練馬','練馬'],['荒川','荒川'],['杉並','杉並'],['江戸川','江戸川'],['豊島','豊島']], :id => "tokyokuselect",:name => "tokyokuselect" %>
+          <%= f.select :region, [['千代田','千代田'],['中央','中央'],['港','港'],['江東','江東'],['新宿','新宿'],['文京','文京'],['大田','大田'],['台東','台東'],['渋谷','渋谷'],['世田谷','世田谷'],['中野','中野'],
+            ['品川','品川'],['目黒','目黒'],['墨田','墨田'],['板橋','板橋'],['北','北'],['足立','足立'],['葛飾','葛飾'],['練馬','練馬'],['荒川','荒川'],['杉並','杉並'],['江戸川','江戸川'],['豊島','豊島']], :id => "tokyokuselect",:name => "tokyokuselect" %>
         </div>
       </td>
       <td>

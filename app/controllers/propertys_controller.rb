@@ -7,7 +7,6 @@ class PropertysController < ApplicationController
   #, unique: [:ip_address]
 
   def index
-    puts("index 빼에에엠")
   end
   
   def googlemap
@@ -15,7 +14,6 @@ class PropertysController < ApplicationController
   end
   
   def popular_list
-    puts("popular_list 진입 빼에에엠 ")
     @propertys = Property.order('impressions_count DESC').take(3)
     #impressionist_count
     p @propertys
@@ -30,14 +28,12 @@ class PropertysController < ApplicationController
   end
   
   def confirm
-    puts("======= confirm　侵入=======")
     @propertys = Property.new(property_params)
     #@property.video = params[:property][:video]
     p @propertys
   end
   
   def create
-    puts("======= create ========")
     @propertys = Property.new(property_params)
     @propertys.user_id = current_user.id
     p @propertys
@@ -56,13 +52,11 @@ class PropertysController < ApplicationController
   end
   
   def list
-    puts("list 빼에에엠 ")
     @q = Property.ransack(params[:q])
     @propertys = Property.all
   end
   
   def show
-    puts("부동산 show 진입")
     @propertys = Property.find(params[:id])
     #@user = User.find(current_user.id)
     @favorite = current_user.favorites.find_by(property_id: @propertys.id)
@@ -72,20 +66,17 @@ class PropertysController < ApplicationController
   end
   
   def destroy
-    puts("부동산 destroy 진입")
     @propertys = Property.find(params[:id])
     @propertys.destroy
     redirect_to list_propertys_path
   end
   
   def edit
-    puts("부동산 edit 진입")
     @propertys = Property.find(params[:id])
     p @propertys 
   end
   
   def update
-    puts("부동산 update%%%%%%%%%%%%%%%%%%%%%%%%%% 진입")
     @propertys = Property.find(params[:id])
     if params[:property][:video] != nil
       @propertys.video = Rails.root.join("public/#{params[:property][:video]}").open

@@ -28,18 +28,18 @@
 			</header>
 		<!-- Menu -->
 			<nav id="menu">
-				<ul class="links">
+			  <ul class="links">
 					<li><%= link_to "ホーム", propertys_path %></li>
 		      <% if logged_in? %>
  		        <li><%= link_to user_path(current_user.id) do  %>プロフィール<% end %>
 		        <li><%= link_to "ログアウト", logout_path(current_user.id), method: :delete %>
+  		        <li><%= link_to (boards_path) do  %>掲示板<% end %>
+  		        <li><%= link_to (list_propertys_path) do  %>物件一覧<% end %>
+				</ul>
 		      <% else %>
   		      <li><%= link_to new_user_path do  %>会員加入<% end %>
   		      <li><%= link_to (new_session_path) do  %>ログイン<% end %>
  		      <% end %>
-  		      <li><%= link_to (boards_path) do  %>掲示板<% end %>
-  		      <li><%= link_to (list_propertys_path) do  %>物件一覧<% end %>
-				</ul>
 			</nav>
   <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>
