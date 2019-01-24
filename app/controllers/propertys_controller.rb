@@ -54,6 +54,7 @@ class PropertysController < ApplicationController
   def list
     @q = Property.ransack(params[:q])
     @propertys = Property.all
+    p @propertys
   end
   
   def show
