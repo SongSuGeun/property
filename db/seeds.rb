@@ -59,34 +59,6 @@ Impression.create!([
   {impressionable_type: "Property", impressionable_id: 43, user_id: 9, controller_name: "propertys", action_name: "show", view_name: nil, request_hash: "66a2d4d5782d4e1ab6a47691ffae488e66ec9d79460fcfe0b5f75f3177a98f6f", ip_address: "175.114.243.118", session_hash: "7610dc43f8a3430656e8de1a64aa3155", message: nil, referrer: "https://honmonorails-songhub.c9users.io/propertys/list", params: {}},
   {impressionable_type: "Property", impressionable_id: 43, user_id: 9, controller_name: "propertys", action_name: "show", view_name: nil, request_hash: "52112954973c71c41b8de90c8c411875b8cf2000db170c0480719c53790ee516", ip_address: "175.114.243.118", session_hash: "7610dc43f8a3430656e8de1a64aa3155", message: nil, referrer: "https://honmonorails-songhub.c9users.io/propertys/list", params: {}}
 ])
-Noticeboard.create!([
-  {name: "admin", content: "複数のイメージ登録ができます", title: "イメージ登録に関して"},
-  {name: "admin", content: "登録しないでください。", title: "偽物は"},
-  {name: "admin", content: "他人のビデオファイルを無断に映さないでください。", title: "ビデオ登録際のご注意事項"},
-  {name: "admin", content: "虚業情報は載せないでください。", title: "物件登録際、ご注意事項"}
-])
-Property.create!([
-  {name: "good home大阪中央二丁目", user_id: 2, rent: 30, subsidy: "1っか月", reward: "1っか月", region: "中央", area: 45, extent: "1LDK", image: ["home6.PNG", "home6-1.PNG", "home6-2.PNG"], video: nil, longitude: 34.682366, latitude: 135.515854, impressions_count: 0},
-  {name: "diveinthecity港区304", user_id: 9, rent: 70, subsidy: "1っか月", reward: "1っか月", region: "港", area: 60, extent: "1LDK", image: ["home9.PNG"], video: nil, longitude: 35.643707, latitude: 139.736429, impressions_count: 0},
-  {name: "海が見える港区505", user_id: 9, rent: 70, subsidy: "1っか月", reward: "2っか月", region: "港", area: 70, extent: "2K", image: ["home10.PNG", "home10-1.PNG", "home10-2.PNG"], video: "room.mp4", longitude: 35.662983, latitude: 139.719423, impressions_count: 0},
-  {name: "千代田三丁目", user_id: 1, rent: 50, subsidy: "1っか月", reward: "なし", region: "千代田", area: 44, extent: "2LDK", image: ["home1.PNG", "home1-1.PNG", "home1-2.PNG"], video: nil, longitude: 35.680724, latitude: 139.7536, impressions_count: 0},
-  {name: "千代田周り一丁目", user_id: 1, rent: 55, subsidy: "2っか月", reward: "2っか月", region: "千代田", area: 35, extent: "3K", image: ["home2.PNG", "home2-1.PNG"], video: nil, longitude: 35.689417, latitude: 139.740984, impressions_count: 0},
-  {name: "ここは渋谷三丁目", user_id: 7, rent: 99, subsidy: "2っか月", reward: "2っか月", region: "渋谷", area: 55, extent: "3DK", image: ["home3.PNG", "home3-1.PNG", "home3-2.PNG", "home3-3.PNG"], video: "room.mp4", longitude: 35.662209, latitude: 139.699745, impressions_count: 0},
-  {name: "ここは東京北区二丁目", user_id: 7, rent: 33, subsidy: "1っか月", reward: "なし", region: "北", area: 66, extent: "3DK", image: ["home4.PNG", "home4-1.PNG", "home4-2.PNG"], video: nil, longitude: 35.765492, latitude: 139.727367, impressions_count: 0},
-  {name: "nicehomeIn品川一丁目", user_id: 8, rent: 55, subsidy: "なし", reward: "2っか月", region: "品川", area: 25, extent: "1DK", image: ["home7.PNG"], video: "room.mp4", longitude: 35.606343, latitude: 139.731327, impressions_count: 1},
-  {name: "ルネサンス302北区二丁目", user_id: 7, rent: 55, subsidy: "なし", reward: "なし", region: "北", area: 60, extent: "3K", image: ["home5.PNG"], video: nil, longitude: 35.755425, latitude: 139.715276, impressions_count: 3},
-  {name: "starcity中野二丁目", user_id: 8, rent: 42, subsidy: "1っか月", reward: "なし", region: "中野", area: 45, extent: "3DK", image: ["home8.PNG", "home8-1.PNG", "home8-2.PNG"], video: nil, longitude: 35.712474, latitude: 139.668791, impressions_count: 4},
-  {name: "グランド201板橋区一丁目", user_id: 1, rent: 35, subsidy: "なし", reward: "なし", region: "板橋", area: 55, extent: "1R", image: ["20160306_112657_HDR.jpg"], video: nil, longitude: 35.658624, latitude: 139.745433, impressions_count: 0}
-])
-Questionboard.create!([
-  {user_id: 1, name: "nike", content: "どうしますか。", reply: nil, title: "偽物物件みたいな物件発見"},
-  {user_id: 4, name: "asdasdasd", content: "ありがとうございます。", reply: nil, title: "このサイトいいね"},
-  {user_id: 4, name: "asdasdasd", content: "直してください。", reply: nil, title: "クロムではビデオが見えない。"},
-  {user_id: 7, name: "sugeun", content: "どんなアイドルがすきですか。", reply: nil, title: "運営者の好み"},
-  {user_id: 4, name: "asdasdasd", content: "サイトいいね。", reply: "ブログに乗せていただきありがとうございます。", title: "ブログに乗せたい"},
-  {user_id: 7, name: "sugeun", content: "いつですか。", reply: "構築日は19／1／1です。ありがとうございます。", title: "サイト構築日はいつ？"},
-  {user_id: 1, name: "nike", content: "返答よろしくお願いします。", reply: "不動産業者のみ物件登録ができます。よろしくお願いします。", title: "不動産業者のみ物件登録ができますか。"}
-])
 User.create!([
   {name: "nike", email: "nike@naver.com", password_digest: "$2a$10$eDA5WPDulBAVeHUo79BUNe6n8pXqQjc/uVS8tgXXrm5pVmyPDkXNm", authority: 1, icon_image: "6dd5751f74f44dd1f30165f92ed8f4a2.jpg"},
   {name: "song", email: "song@naver.com", password_digest: "$2a$10$P7BDkllKEBOoWEDi6f265eyYIdEn9g8c4ltje/fkmYAw4LTJOl/Tq", authority: 1, icon_image: "1.jpg"},
