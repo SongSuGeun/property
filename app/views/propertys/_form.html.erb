@@ -18,16 +18,12 @@
                 placeMarker(event.latLng);
            });
       }
-      
       function placeMarker(location) {
         clearOverlays();
-        
         document.getElementById('longitude').textContent = location.lat();
         document.getElementById('latitude').textContent = location.lng();
-        
         $('#hiddenlongitude').val(location.lat())
         $('#hiddenlatitude').val(location.lng())
-        
         var marker = new google.maps.Marker({
           position: location,
           map: cmap
@@ -51,7 +47,7 @@ $(document).ready(function(){
   $(function(){
     initMap();
   });
-
+  
   $('#tokyoku').hide();
   $('#oosakaku').hide();
 });
@@ -133,7 +129,7 @@ function GooglemapGuide(){
 </script>
 <% if @propertys.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@propertys.errors.count, "error") %> prohibited this @user from being saved:</h2>
+    <h2><%= pluralize(@propertys.errors.count, "件エーラの") %> が発生しました、ご確認お願いします。</h2>
     <ul>
     <% @propertys.errors.full_messages.each do |message| %>
       <li><%= message %></li>
@@ -227,15 +223,4 @@ function GooglemapGuide(){
       </td>
     </tr>
   </table>
-<% end %>
-
-<% if @propertys.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@propertys.errors.count, "件エーラの") %> が発生しました、ご確認お願いします。</h2>
-    <ul>
-    <% @propertys.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
 <% end %>

@@ -1,7 +1,21 @@
-<script language='javascript'>
-
+<script>
+      function initMap() {
+        var myLatLng = {lat: <%= @propertys.longitude %>, lng: <%= @propertys.latitude %>};       
+        var map = new google.maps.Map(document.getElementById('google_map'), {
+          zoom : 15, //기본 확대율
+          center : myLatLng, // 지도 중앙 위치
+          scrollwheel : true, //마우스 휠로 확대 축소 사용 여부
+          mapTypeControl : true //맵 타입 컨트롤 사용 여부
+        });
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map
+        });
+      }
 </script>
-
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfhQeDhWJ_go3vaiDCB0slA9uFoK4nSpw&callback=initMap">
+</script>
 <h1>物件登録確認ページ</h1>
 <div>
 <table>
@@ -68,13 +82,16 @@
       <td><%= f.hidden_field :region, value: @propertys.region %></td>
     </tr>
     <tr>
-      <td>位置</td>
-      <td>経度<%= @propertys.longitude %></td>
-      <td><%= f.hidden_field :longitude, value: @propertys.longitude %></td>
+      <th>地図</th>
+    </tr>  
+    <tr>
+      <th>
+        <div id="google_map"  style="width:500px;height:380px;"></div>
+      </th>
     </tr>
     <tr>
-      <td> </td>
-      <td>緯度<%= @propertys.latitude %></td>
+      <td>経度: <%= @propertys.longitude %> / 緯度: <%= @propertys.latitude %></td>
+      <td><%= f.hidden_field :longitude, value: @propertys.longitude %></td>
       <td><%= f.hidden_field :latitude, value: @propertys.latitude %></td>
     </tr>
     <tr>
@@ -88,7 +105,7 @@
       <td><%= f.hidden_field :extent, value: @propertys.extent %></td>    
     </tr>
     <tr>
-      <td colspan ='2'><%= f.submit "登録" %></td>
+      <td><%= f.submit "登録" %></td>
     </tr>
 <% end %>
 </table>
@@ -98,6 +115,7 @@
   <%= form.hidden_field :name %>
   <%= form.hidden_field :rent %>
   <%= form.hidden_field :subsidy %>
+  <%= form.hidden_field :address %>
   <%= form.hidden_field :reward %>
   <%= form.hidden_field :area %>
   <%= form.hidden_field :extent %>
