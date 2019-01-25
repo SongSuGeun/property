@@ -6,7 +6,7 @@ class Property < ApplicationRecord
   validates:latitude, presence:true
   validates:longitude, presence:true
   validates:area, presence:true
-  
+  validates:address, presence:true
   mount_uploaders :image, ImageUploader
   
   serialize :image, JSON
