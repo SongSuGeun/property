@@ -1,5 +1,57 @@
+<script>
+  var mapCanvas;
+  var cmap;
+  var markersArray = [];
+
+      function initMap() {
+        var latlng = new google.maps.LatLng(eval(35.658599), eval(139.745443));
+        var myOptions = {
+          zoom: 15, //기본 확대율 
+          center:  latlng, // 지도 중앙 위치
+          scrollwheel: true, //마우스 휠로 확대 축소 사용 여부
+          mapTypeControl: true //맵 타입 컨트롤 사용 여부
+        };
+        
+        cmap = new google.maps.Map(document.getElementById('google_map'),myOptions);
+        
+        google.maps.event.addListener(cmap, "click", function(event) {
+                placeMarker(event.latLng);
+           });
+      }
+      
+      function placeMarker(location) {
+        clearOverlays();
+        
+        document.getElementById('longitude').textContent = location.lat();
+        document.getElementById('latitude').textContent = location.lng();
+        
+        $('#hiddenlongitude').val(location.lat())
+        $('#hiddenlatitude').val(location.lng())
+        
+        var marker = new google.maps.Marker({
+          position: location,
+          map: cmap
+         });
+         
+         markersArray.push(marker);
+      }
+      
+      function clearOverlays() {
+        for (var i = 0; i < markersArray.length; i++ ) {
+          markersArray[i].setMap(null);
+        }
+      }
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfhQeDhWJ_go3vaiDCB0slA9uFoK4nSpw&callback=initMap">
+</script>
 <script language='javascript'>
 $(document).ready(function(){
+    
+  $(function(){
+    initMap();
+  });
+
   $('#tokyoku').hide();
   $('#oosakaku').hide();
 });
@@ -21,6 +73,18 @@ function sub(){
     alert("物件名を入力してください。")
     return false;
   }
+  else if($("#address").val() == null || $("#address").val() == ''){  
+    alert("住所を入力してください。")
+    return false;
+  }
+  else if($("#hiddenlongitude").val() == null || $("#hiddenlongitude").val() == ''){  
+    alert("地図の上に位置を選択してください。")
+    return false;
+  }
+  else if($("#hiddenlatitude").val() == null || $("#hiddenlatitude").val() == ''){  
+    alert("地図の上に位置を選択してください。")
+    return false;
+  }
   else if($("#rent").val() == null || $("#rent").val() == ''){  
     alert("家賃を入力してください。")
     return false;
@@ -29,22 +93,15 @@ function sub(){
     alert("地域を選択してください。"); 
     return false;
   }
-  else if($("#longitude").val() == null || $("#longitude").val() == ''){  
-    alert("経度を入力してください。")
-    return false;
-  }
-  else if($("#latitude").val() == null || $("#latitude ").val() == ''){  
-    alert("緯度を入力してください。")
-    return false;
-  }
+
   else if($("#area").val() == null || $("#area").val() == ''){  
     alert("広さを入力してください。")
     return false;
   }
   
   var rent = document.getElementById('rent');
-  var longitude = document.getElementById('longitude');
-  var latitude = document.getElementById('latitude');
+  //var longitude = document.getElementById('longitude');
+  //var latitude = document.getElementById('latitude');
   var area = document.getElementById('area');
 
   var re = /^[1.0-9.0]+$/;
@@ -52,14 +109,7 @@ function sub(){
     alert("家賃欄に正常数を入れてください。");
     return false;
   }
-  else if(!re.test(longitude.value)) {
-    alert("経度欄に正常数を入れてください。");
-    return false;
-  }
-  else if(!re.test(latitude.value)) {
-    alert("緯度欄に正常数を入れてください。");
-    return false;
-  }
+
   else if(!re.test(area.value)) {
     alert("広さ欄に正常数を入れてください。");
     return false;
@@ -95,12 +145,14 @@ function GooglemapGuide(){
 <table>
     <tr>
       <td ropspan ='2'><%= f.label :物件イメージ %></td>
-      <% if @propertys.image.present? %>
-        <% @propertys.image.each do |image| %>
-          <th><%= image_tag (image.url)%></th>
+        <% if @propertys.image.present? %>
+          <% @propertys.image.each do |image| %>
+            <th><%= image_tag (image.url)%></th>
+            <td><%= f.file_field :image, :multiple => true, :value => @propertys.image, :id => "image" %></td>
+          <% end %>
+        <% else %>
+          <td><%= f.file_field :image, :multiple => true, :value => @propertys.image, :id => "image" %></td>
         <% end %>
-      <% end %>
-        <td><%= f.file_field :image, :multiple => true, :value => @propertys.image, :id => "image" %></td>
     </tr>
     <tr>
       <td ropspan ='2'><%= f.label :内部ビデオ %></td>
@@ -113,6 +165,10 @@ function GooglemapGuide(){
     <tr>
       <td><%= f.label :物件名 %></td>
       <td><%= f.text_field :name, :value => @propertys.name, :id => "name" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :物件住所 %></td>
+      <td><%= f.text_field :address, :value => @propertys.address, :id => "address" %></td>
     </tr>
     <tr>
       <td><%= f.label :家賃 %></td>
@@ -147,14 +203,17 @@ function GooglemapGuide(){
       </td>  
     </tr>
     <tr>
-      <td><%= f.label :経度 %></td>
-      <td><%= f.text_field :longitude, :value => @propertys.longitude, :id => "longitude" %></td>
-      <td><a onclick='GooglemapGuide()'>経緯と緯度とは？</a></td>
+      <td>地図</td>
+      <th>
+        <div id="google_map"  style="width:500px;height:380px;"></div>
+      </th>
     </tr>
     <tr>
-      <td><%= f.label :緯度 %></td>
-      <td><%= f.text_field :latitude, :value => @propertys.latitude, :id => "latitude" %></td>
-    </tr>
+      <td>  </td>
+      <td>経度: <span id="longitude" name = 'longitude'></span> / 緯度: <span id="latitude" name = 'latitude'></span></td>
+      <td><%= f.hidden_field :longitude, :id => "hiddenlongitude" %></td>
+      <td><%= f.hidden_field :latitude, :id => "hiddenlatitude" %></td>
+    </tr>  
     <tr>
       <td><%= f.label :広さ %>(㎡)</td>
       <td><%= f.text_field :area, :value => @propertys.area, :id => "area" %></td>
@@ -172,7 +231,7 @@ function GooglemapGuide(){
 
 <% if @propertys.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(@propertys.errors.count, "error") %> prohibited this @propertys from being saved:</h2>
+    <h2><%= pluralize(@propertys.errors.count, "件エーラの") %> が発生しました、ご確認お願いします。</h2>
     <ul>
     <% @propertys.errors.full_messages.each do |message| %>
       <li><%= message %></li>

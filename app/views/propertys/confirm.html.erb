@@ -36,6 +36,11 @@
       <td><%= f.hidden_field :name, value: @propertys.name %></td>
     </tr>
     <tr>
+      <td>物件名</td>
+      <td><%= @propertys.address %></td>
+      <td><%= f.hidden_field :address, value: @propertys.address %></td>
+    </tr>
+    <tr>
       <td>家賃</td>
       <td><%= @propertys.rent %></td>
       <td><%= f.hidden_field :rent, value: @propertys.rent %></td>
@@ -94,8 +99,6 @@
   <%= form.hidden_field :rent %>
   <%= form.hidden_field :subsidy %>
   <%= form.hidden_field :reward %>
-  <%= form.hidden_field :longitude %>
-  <%= form.hidden_field :latitude %>
   <%= form.hidden_field :area %>
   <%= form.hidden_field :extent %>
   <%= form.submit "戻る", name: 'back' %>

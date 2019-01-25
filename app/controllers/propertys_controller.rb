@@ -91,7 +91,7 @@ class PropertysController < ApplicationController
   private
   
   def property_params
-    params.require(:property).permit({image: []}, :video, :image_cache, :name, :rent, :subsidy, :reward, :region, :area, :extent, :longitude, :latitude)
+    params.require(:property).permit({image: []}, :video, :image_cache, :name, :address, :rent, :subsidy, :reward, :region, :area, :extent, :longitude, :latitude)
   end
   
 
