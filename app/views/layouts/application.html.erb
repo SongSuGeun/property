@@ -35,6 +35,7 @@
 		        <li><%= link_to "ログアウト", logout_path(current_user.id), method: :delete %>
   		        <li><%= link_to (boards_path) do  %>掲示板<% end %>
   		        <li><%= link_to (list_propertys_path) do  %>物件一覧<% end %>
+  		        <li><%= link_to (new_property_path) do  %>物件登録<% end %>
 				</ul>
 		      <% else %>
   		      <li><%= link_to new_user_path do  %>会員加入<% end %>
