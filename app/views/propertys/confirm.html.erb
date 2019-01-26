@@ -77,7 +77,7 @@
         <% else %>
           oosaka
         <% end %>
-        <%= @propertys.region %>
+        <%= @propertys.region %>区
       </td>
       <td><%= f.hidden_field :region, value: @propertys.region %></td>
     </tr>
@@ -96,7 +96,7 @@
     </tr>
     <tr>
       <td>広さ</td>
-      <td><%= @propertys.area %> (㎡)</td>
+      <td><%= @propertys.area %>㎡</td>
       <td><%= f.hidden_field :area, value: @propertys.area %></td>
     </tr>
     <tr>

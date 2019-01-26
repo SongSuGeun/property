@@ -42,11 +42,11 @@
         <% end %>
       </th>
       <th><%= link_to f.name, property_path(f.id) %></th>
-      <th><%= f.rent %></th>
+      <th><%= f.rent %>万</th>
       <th><%= f.subsidy %></th>
       <th><%= f.reward %></th>
-      <th><%= f.region %></th>
-      <th><%= f.area %></th>
+      <th><%= f.region %>区</th>
+      <th><%= f.area %>㎡</th>
       <th><%= f.extent %></th>
       <th><%= f.impressionist_count %></th>
       <% if f.user_id == current_user.id %>

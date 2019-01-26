@@ -167,16 +167,16 @@ function GooglemapGuide(){
       <td><%= f.text_field :address, :value => @propertys.address, :id => "address" %></td>
     </tr>
     <tr>
-      <td><%= f.label :家賃 %></td>
+      <td><%= f.label :家賃(万)（ %></td>
       <td><%= f.text_field :rent, :value => @propertys.rent , :id => "rent" %></td>
     </tr>
     <tr>
       <td><%= f.label :敷金 %></td>
-      <td><%= f.select :subsidy, [['なし', 'なし'], ['1っか月', '1っか月'],['2っか月', '2っか月']], :selected => @propertys.subsidy, :value => @propertys.reward  %></td>
+      <td><%= f.select :subsidy, [['なし', 'なし'], ['1か月', '1か月'],['2か月', '2か月']], :selected => @propertys.subsidy, :value => @propertys.reward  %></td>
     </tr>
     <tr>
       <td><%= f.label :礼金 %></td>
-      <td><%= f.select :reward, [['なし', 'なし'], ['1っか月', '1っか月'],['2っか月', '2っか月']], :selected => @propertys.reward, :value => @propertys.reward %></td>
+      <td><%= f.select :reward, [['なし', 'なし'], ['1か月', '1か月'],['2か月', '2か月']], :selected => @propertys.reward, :value => @propertys.reward %></td>
     </tr>
     <tr name='country' id='country'>
       <td><%= f.label :区 %></td>
