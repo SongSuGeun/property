@@ -1,13 +1,15 @@
-<% if @noticeboards.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@noticeboards.errors.count, "error") %> prohibited this @noticeboards from being saved:</h2>
-    <ul>
-    <% @noticeboards.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
+<script language='javascript'>
+function sub(){
+  if($("#title").val() === null || $("#title").val() == ''){  
+    alert("タイトルを入力してください。")
+    return false;
+  }  
+  else if($("#content").val() == null || $("#content").val() == ''){  
+    alert("コンテンツを入力してください。")
+    return false;
+  }
+};
+</script>
 <%= form_with(model: @noticeboards, local: true, url: choose_notice_new_or_edit, method: 'post') do |f| %>
 <table>
   <tr>
@@ -16,14 +18,14 @@
   </tr>
   <tr>
     <td><%= f.label :Title %></td> 
-    <td><%= f.text_field :title , :value => @noticeboards.title %></td>
+    <td><%= f.text_field :title , :value => @noticeboards.title , :id => 'title'%></td>
   </tr>
   <tr>
     <td><%= f.label :Content %></td> 
-    <td><%= f.text_area(:content, size: '50x10', :class => 'text_area', :value => @noticeboards.content ) %></td>
+    <td><%= f.text_area(:content, size: '50x10', :class => 'text_area', :value => @noticeboards.content, :id => 'content' ) %></td>
   </tr>
   <tr>
-    <td><%= f.submit 'お知らせ作成' %></td>
+    <td><%= f.submit 'お知らせ作成', onclick: 'return sub()' %></td>
     <td><%= f.hidden_field :id, :value => @noticeboards.id %></td>
   </tr> 
 </table>

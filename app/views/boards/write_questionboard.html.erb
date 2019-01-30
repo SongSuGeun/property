@@ -1,3 +1,15 @@
+<script language='javascript'>
+function sub(){
+  if($("#title").val() === null || $("#title").val() == ''){  
+    alert("タイトルを入力してください。")
+    return false;
+  }  
+  else if($("#content").val() == null || $("#content").val() == ''){  
+    alert("コンテンツを入力してください。")
+    return false;
+  }
+};
+</script>
 <% if @questionboard.errors.any? %>
   <div id="error_explanation">
     <h2><%= pluralize(@questionboard.errors.count, "error") %> prohibited this @questionboard from being saved:</h2>
@@ -17,14 +29,14 @@
   </tr>
   <tr>
     <td><%= f.label :Title %></td> 
-    <td><%= f.text_field :title %></td>
+    <td><%= f.text_field :title, :id => 'title' %></td>
   </tr>
   <tr>
     <td><%= f.label :Content %></td> 
-    <td><%= f.text_area(:content, size: '50x10', :class => 'text_area') %></td>
+    <td><%= f.text_area(:content, size: '50x10', :class => 'text_area', :id => 'content' ) %></td>
   </tr> 
   <tr>
-    <td><%= f.submit 'お問い合わせ作成' %></td>
+    <td><%= f.submit 'お問い合わせ作成', onclick: 'return sub()' %></td>
   </tr>  
 </table>
 <% end %>
