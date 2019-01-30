@@ -20,6 +20,9 @@ class PropertysController < ApplicationController
   end
 
   def new
+    puts ("dddd")
+    p Geocoder.coordinates("東京都千代田区千代田１−１")
+
     if params[:back]
       @propertys = Property.new(property_params)
     else
@@ -28,6 +31,7 @@ class PropertysController < ApplicationController
   end
   
   def confirm
+    
     @propertys = Property.new(property_params)
     #@property.video = params[:property][:video]
     p @propertys
@@ -61,9 +65,7 @@ class PropertysController < ApplicationController
     @propertys = Property.find(params[:id])
     #@user = User.find(current_user.id)
     @favorite = current_user.favorites.find_by(property_id: @propertys.id)
-    
-    
-    p @favorite
+    p @propertys
   end
   
   def destroy
@@ -91,7 +93,7 @@ class PropertysController < ApplicationController
   private
   
   def property_params
-    params.require(:property).permit({image: []}, :video, :image_cache, :name, :address, :rent, :subsidy, :reward, :region, :area, :extent, :longitude, :latitude)
+    params.require(:property).permit({image: []}, :video, :image_cache, :name, :rent, :subsidy, :reward, :region, :area, :extent, :address, :latitude, :longitude )
   end
   
 

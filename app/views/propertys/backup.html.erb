@@ -1,0 +1,368 @@
+form
+<script>
+  var mapCanvas;
+  var cmap;
+  var markersArray = [];
+
+      function initMap() {
+        var latlng = new google.maps.LatLng(eval(35.658599), eval(139.745443));
+        var myOptions = {
+          zoom: 15, //기본 확대율 
+          center:  latlng, // 지도 중앙 위치
+          scrollwheel: true, //마우스 휠로 확대 축소 사용 여부
+          mapTypeControl: true //맵 타입 컨트롤 사용 여부
+        };
+        
+        cmap = new google.maps.Map(document.getElementById('google_map'),myOptions);
+        
+        google.maps.event.addListener(cmap, "click", function(event) {
+                placeMarker(event.latLng);
+           });
+      }
+      function placeMarker(location) {
+        clearOverlays();
+        document.getElementById('longitude').textContent = location.lat();
+        document.getElementById('latitude').textContent = location.lng();
+        $('#hiddenlongitude').val(location.lat())
+        $('#hiddenlatitude').val(location.lng())
+        var marker = new google.maps.Marker({
+          position: location,
+          map: cmap
+         });
+         
+         markersArray.push(marker);
+      }
+      
+      function clearOverlays() {
+        for (var i = 0; i < markersArray.length; i++ ) {
+          markersArray[i].setMap(null);
+        }
+      }
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfhQeDhWJ_go3vaiDCB0slA9uFoK4nSpw&callback=initMap">
+</script>
+<script language='javascript'>
+$(document).ready(function(){
+    
+  $(function(){
+    initMap();
+  });
+  
+  $('#tokyoku').hide();
+  $('#oosakaku').hide();
+});
+function tokyo(){
+  $('#tokyoku').show();
+  $('#oosakaku').hide();
+};
+function oosaka(){
+  $('#oosakaku').show();
+  $('#tokyoku').hide();
+};
+
+function sub(){
+  if($("#image").val() === null || $("#image").val() == ''){  
+    alert("物件イメージは最低一枚登録してください。")
+    return false;
+  }  
+  else if($("#name").val() == null || $("#name").val() == ''){  
+    alert("物件名を入力してください。")
+    return false;
+  }
+  else if($("#address").val() == null || $("#address").val() == ''){  
+    alert("住所を入力してください。")
+    return false;
+  }
+  else if($("#hiddenlongitude").val() == null || $("#hiddenlongitude").val() == ''){  
+    alert("地図の上に位置を選択してください。")
+    return false;
+  }
+  else if($("#hiddenlatitude").val() == null || $("#hiddenlatitude").val() == ''){  
+    alert("地図の上に位置を選択してください。")
+    return false;
+  }
+  else if($("#rent").val() == null || $("#rent").val() == ''){  
+    alert("家賃を入力してください。")
+    return false;
+  }
+  else if(!$("#injapanTOKYO").is(':checked') && !$("#injapanOOSAKA").is(':checked')){
+    alert("地域を選択してください。"); 
+    return false;
+  }
+
+  else if($("#area").val() == null || $("#area").val() == ''){  
+    alert("広さを入力してください。")
+    return false;
+  }
+  
+  var rent = document.getElementById('rent');
+  //var longitude = document.getElementById('longitude');
+  //var latitude = document.getElementById('latitude');
+  var area = document.getElementById('area');
+
+  var re = /^[1.0-9.0]+$/;
+  if(!re.test(rent.value)) {
+    alert("家賃欄に正常数を入れてください。");
+    return false;
+  }
+
+  else if(!re.test(area.value)) {
+    alert("広さ欄に正常数を入れてください。");
+    return false;
+  }
+  if($('#injapanTOKYO').is(':checked')) {
+    $('#oosakaku').remove();
+    return true;
+  }
+  else if($('#injapanOOSAKA').is(':checked')){
+    $('#tokyoku').remove();
+    return true;
+  }
+};
+function GooglemapGuide(){
+  var googlemap_dic = './googlemap.html'
+  <% unless @propertys.id == nil %>
+    googlemap_dic = '../googlemap.html'
+  <% end %>
+  window.open( googlemap_dic ,'','width=790, height=800,scrollbars=yes,toolbar=no,menubar=no,status=no,resizable=yes')
+}
+</script>
+<% if @propertys.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@propertys.errors.count, "件エーラの") %> が発生しました、ご確認お願いします。</h2>
+    <ul>
+    <% @propertys.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with(model: @propertys, local: true, url: choose_new_or_edit, name: "Form") do |f| %>
+<table>
+    <tr>
+      <td ropspan ='2'><%= f.label :物件イメージ %></td>
+        <% if @propertys.image.present? %>
+          <% @propertys.image.each do |image| %>
+            <th><%= image_tag (image.url)%></th>
+            <td><%= f.file_field :image, :multiple => true, :value => @propertys.image, :id => "image" %></td>
+          <% end %>
+        <% else %>
+          <td><%= f.file_field :image, :multiple => true, :value => @propertys.image, :id => "image" %></td>
+        <% end %>
+    </tr>
+    <tr>
+      <td ropspan ='2'><%= f.label :内部ビデオ %></td>
+      <% if @propertys.video.present? %>
+        <th><%= video_tag @propertys.video.url, autoplay: true, muted: true, controls: true , :size => "350x260"%></th>
+      <% else %>
+        <td><%= f.file_field :video, :multiple => false, :value => @propertys.video %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td><%= f.label :物件名 %></td>
+      <td><%= f.text_field :name, :value => @propertys.name, :id => "name" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :物件住所 %></td>
+      <td><%= f.text_field :address, :value => @propertys.address, :id => "address" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :家賃%>(万)</td>
+      <td><%= f.text_field :rent, :value => @propertys.rent , :id => "rent" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :敷金 %></td>
+      <td><%= f.select :subsidy, [['なし', 'なし'], ['1か月', '1か月'],['2か月', '2か月']], :selected => @propertys.subsidy, :value => @propertys.reward  %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :礼金 %></td>
+      <td><%= f.select :reward, [['なし', 'なし'], ['1か月', '1か月'],['2か月', '2か月']], :selected => @propertys.reward, :value => @propertys.reward %></td>
+    </tr>
+    <tr name='country' id='country'>
+      <td><%= f.label :区 %></td>
+      <td><input type="radio" onclick='tokyo()' name = "injapan" id = "injapanTOKYO">東京</td>
+      <td><input type="radio" onclick='oosaka()' name = "injapan" id = "injapanOOSAKA">大阪</td>
+    </tr>
+    <tr>
+      <td>　</td>
+      <td>
+        <div id='tokyoku'>
+          <%= f.select :region, [['千代田','千代田'],['中央','中央'],['港','港'],['江東','江東'],['新宿','新宿'],['文京','文京'],['大田','大田'],['台東','台東'],['渋谷','渋谷'],['世田谷','世田谷'],['中野','中野'],
+            ['品川','品川'],['目黒','目黒'],['墨田','墨田'],['板橋','板橋'],['北','北'],['足立','足立'],['葛飾','葛飾'],['練馬','練馬'],['荒川','荒川'],['杉並','杉並'],['江戸川','江戸川'],['豊島','豊島']], :id => "tokyokuselect",:name => "tokyokuselect" %>
+        </div>
+      </td>
+      <td>
+        <div id='oosakaku'>
+          <%= f.select :region, [['此花','此花'],['鶴見','鶴見'],['阿倍野','阿倍野'],['旭區','旭區'],['浪速','浪速'],['西','西'],['西成','西成'],['生野','生野'],['城東','城東'],['西成','西成'],['西淀川','西淀川'],['中央','中央'],['福島','福島'],
+            ['大正','大正'],['天王寺','天王寺'],['東成','東成'],['東住吉','東住吉'],['都島','都島'],['東淀川','東淀川'],['平野','平野'],['住之江','住之江'],['住吉','住吉']],:id => "oosakakuselect",:name => "oosakakuselect" %>
+        </div>
+      </td>  
+    </tr>
+    <tr>
+      <td>地図</td>
+      <th>
+        <div id="google_map"  style="width:500px;height:380px;"></div>
+      </th>
+    </tr>
+    <tr>
+      <td>  </td>
+      <td>経度: <span id="longitude" name = 'longitude'></span> / 緯度: <span id="latitude" name = 'latitude'></span></td>
+      <td><%= f.hidden_field :longitude, :id => "hiddenlongitude" %></td>
+      <td><%= f.hidden_field :latitude, :id => "hiddenlatitude" %></td>
+    </tr>  
+    <tr>
+      <td><%= f.label :広さ %>(㎡)</td>
+      <td><%= f.text_field :area, :value => @propertys.area, :id => "area" %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :間取り %></td>
+      <td><%= f.select :extent, [['1R','1R'], ['1K','1K'],['1DK','1DK'],['1LDK','1LDK'],['2K','2K'],['2LDK','2LDK'],['3K','3K'],['3DK','3DK'],['3LDK','3LDK'],['4K','4K']], :selected => @propertys.extent, :value => @propertys.extent %></td>
+    </tr>
+      <td colspan ='2'>
+        <%= f.submit '物件登録', onclick: 'return sub()' %>
+      </td>
+    </tr>
+  </table>
+<% end %>
+
+
+==
+
+confirm
+
+<script type="text/javascript">
+  function initMap() {
+
+    var test = {lat: <%= @map.latitude %>, lng: <%= @map.longitude %>};
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: test
+    });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    var contentString = '住所：<%= @map.address %>';
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
+    var marker = new google.maps.Marker({
+      position:test,
+      map: map,
+      title: contentString
+    });
+
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfhQeDhWJ_go3vaiDCB0slA9uFoK4nSpw&callback=initMap">
+</script>
+<h1>物件登録確認ページ</h1>
+<div>
+<table>
+  <tr>
+    <td>物件イメージ</td>
+  </tr>
+<%= form_with(model: @propertys, url: propertys_path, local: true) do |f| %>  
+    <tr>
+      <% if @propertys.image? %>
+        <% @propertys.image.each do |image| %>
+          <td><%= image_tag(image.url)%></td>
+        <% end %>
+      <% end %>  
+      <td><%= f.hidden_field :image, value: @propertys.image %></td>
+      <td><%= f.hidden_field :image_cache %></td>
+    </tr>
+    <tr>
+      <td>ビデオ</td>
+    </tr>
+    <tr>
+      <% if @propertys.video? %>
+        <td><%= video_tag @propertys.video.url, autoplay: true, muted: true, controls: true , :size => "350x260"%></td>
+        <%= f.hidden_field :video, :value => @propertys.video.url %>
+        <%= f.hidden_field :video, value: @propertys.video.url %>
+      <% else %>
+        <td>登録されたビデオがありません。</td>
+      <% end %>  
+    </tr>
+    <tr>
+      <td>物件名</td>
+      <td><%= @propertys.name %></td>
+      <td><%= f.hidden_field :name, value: @propertys.name %></td>
+    </tr>
+    <tr>
+      <td>物件名</td>
+      <td><%= @propertys.address %></td>
+      <td><%= f.hidden_field :address, value: @propertys.address %></td>
+    </tr>
+    <tr>
+      <td>家賃</td>
+      <td><%= @propertys.rent %>万</td>
+      <td><%= f.hidden_field :rent, value: @propertys.rent %></td>
+    </tr>
+    <tr>
+      <td>敷金</td>
+      <td><%= @propertys.subsidy %></td>
+      <td><%= f.hidden_field :subsidy, value: @propertys.subsidy %></td>
+    </tr>
+    <tr>
+      <td>礼金</td>
+      <td><%= @propertys.reward %></td>
+      <td><%= f.hidden_field :reward, value: @propertys.reward %></td>
+    </tr>
+    <tr>
+      <td>区</td>
+      <td>
+        <% if @propertys.region == ('千代田'||'中央'||'港'||'新宿'||'文京'||'台東'||'渋谷'||'豊島'||'世田谷'||'中野'||'品川'||'目黒'||'墨田'||'北'||'江戸川'||'練馬'||'杉並') %>
+          toukyou
+        <% else %>
+          oosaka
+        <% end %>
+        <%= @propertys.region %>区
+      </td>
+      <td><%= f.hidden_field :region, value: @propertys.region %></td>
+    </tr>
+    <tr>
+      <th>地図</th>
+    </tr>  
+    <tr>
+      <th>
+        <div id="google_map"  style="width:500px;height:380px;"></div>
+      </th>
+    </tr>
+    <tr>
+      <td>経度: <%= @propertys.longitude %> / 緯度: <%= @propertys.latitude %></td>
+      <td><%= f.hidden_field :longitude, value: @propertys.longitude %></td>
+      <td><%= f.hidden_field :latitude, value: @propertys.latitude %></td>
+    </tr>
+    <tr>
+      <td>広さ</td>
+      <td><%= @propertys.area %>㎡</td>
+      <td><%= f.hidden_field :area, value: @propertys.area %></td>
+    </tr>
+    <tr>
+      <td>間取り</td>
+      <td><%= @propertys.extent %></td>
+      <td><%= f.hidden_field :extent, value: @propertys.extent %></td>    
+    </tr>
+    <tr>
+      <td><%= f.submit "登録" %></td>
+    </tr>
+<% end %>
+</table>
+</div>
+<%= form_with(model: @propertys, url: new_property_path, local: true, method: 'get') do |form| %>
+  <%= form.hidden_field :image_cache %>
+  <%= form.hidden_field :name %>
+  <%= form.hidden_field :rent %>
+  <%= form.hidden_field :subsidy %>
+  <%= form.hidden_field :address %>
+  <%= form.hidden_field :reward %>
+  <%= form.hidden_field :area %>
+  <%= form.hidden_field :extent %>
+  <%= form.submit "戻る", name: 'back' %>
+<% end %> 

@@ -1,53 +1,5 @@
-<script>
-  var mapCanvas;
-  var cmap;
-  var markersArray = [];
-
-      function initMap() {
-        var latlng = new google.maps.LatLng(eval(35.658599), eval(139.745443));
-        var myOptions = {
-          zoom: 15, //기본 확대율 
-          center:  latlng, // 지도 중앙 위치
-          scrollwheel: true, //마우스 휠로 확대 축소 사용 여부
-          mapTypeControl: true //맵 타입 컨트롤 사용 여부
-        };
-        
-        cmap = new google.maps.Map(document.getElementById('google_map'),myOptions);
-        
-        google.maps.event.addListener(cmap, "click", function(event) {
-                placeMarker(event.latLng);
-           });
-      }
-      function placeMarker(location) {
-        clearOverlays();
-        document.getElementById('longitude').textContent = location.lat();
-        document.getElementById('latitude').textContent = location.lng();
-        $('#hiddenlongitude').val(location.lat())
-        $('#hiddenlatitude').val(location.lng())
-        var marker = new google.maps.Marker({
-          position: location,
-          map: cmap
-         });
-         
-         markersArray.push(marker);
-      }
-      
-      function clearOverlays() {
-        for (var i = 0; i < markersArray.length; i++ ) {
-          markersArray[i].setMap(null);
-        }
-      }
-</script>
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfhQeDhWJ_go3vaiDCB0slA9uFoK4nSpw&callback=initMap">
-</script>
 <script language='javascript'>
 $(document).ready(function(){
-    
-  $(function(){
-    initMap();
-  });
-  
   $('#tokyoku').hide();
   $('#oosakaku').hide();
 });
@@ -71,14 +23,6 @@ function sub(){
   }
   else if($("#address").val() == null || $("#address").val() == ''){  
     alert("住所を入力してください。")
-    return false;
-  }
-  else if($("#hiddenlongitude").val() == null || $("#hiddenlongitude").val() == ''){  
-    alert("地図の上に位置を選択してください。")
-    return false;
-  }
-  else if($("#hiddenlatitude").val() == null || $("#hiddenlatitude").val() == ''){  
-    alert("地図の上に位置を選択してください。")
     return false;
   }
   else if($("#rent").val() == null || $("#rent").val() == ''){  
@@ -137,7 +81,7 @@ function GooglemapGuide(){
     </ul>
   </div>
 <% end %>
-<%= form_with(model: @propertys, local: true, url: choose_new_or_edit, name: "Form") do |f| %>
+<%= form_with(model: @propertys, local: true, url: choose_new_or_edit, name: "Form",  method: "post") do |f| %>
 <table>
     <tr>
       <td ropspan ='2'><%= f.label :物件イメージ %></td>
@@ -198,18 +142,6 @@ function GooglemapGuide(){
         </div>
       </td>  
     </tr>
-    <tr>
-      <td>地図</td>
-      <th>
-        <div id="google_map"  style="width:500px;height:380px;"></div>
-      </th>
-    </tr>
-    <tr>
-      <td>  </td>
-      <td>経度: <span id="longitude" name = 'longitude'></span> / 緯度: <span id="latitude" name = 'latitude'></span></td>
-      <td><%= f.hidden_field :longitude, :id => "hiddenlongitude" %></td>
-      <td><%= f.hidden_field :latitude, :id => "hiddenlatitude" %></td>
-    </tr>  
     <tr>
       <td><%= f.label :広さ %>(㎡)</td>
       <td><%= f.text_field :area, :value => @propertys.area, :id => "area" %></td>

@@ -53,6 +53,8 @@ gem 'whenever', require: false
 gem 'ransack'
 #seed뺴오기
 gem 'seed_dump'
+#검색해서 좌표 가져오기
+gem 'geocoder'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password

@@ -3,8 +3,6 @@ class Property < ApplicationRecord
   validates:image, presence:true
   validates:rent, presence:true
   validates:region, presence:true
-  validates:latitude, presence:true
-  validates:longitude, presence:true
   validates:area, presence:true
   validates:address, presence:true
   mount_uploaders :image, ImageUploader
@@ -27,10 +25,8 @@ class Property < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_users, through: :favorites, source: :user
   
+  geocoded_by :address
+  after_validation :geocode, if: :address_changed?
   
-  #용량제한 바리데이션
-  #def size_range  
-  #  1..5.megabytes
-  #end
   
 end

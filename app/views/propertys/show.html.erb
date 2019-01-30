@@ -1,17 +1,27 @@
-<script>
+ <script>
+ var geo;
+ var map
       function initMap() {
-        var myLatLng = {lat: <%= @propertys.longitude %>, lng: <%= @propertys.latitude %>};       
-        var map = new google.maps.Map(document.getElementById('google_map'), {
-          zoom : 15, //기본 확대율
-          center : myLatLng, // 지도 중앙 위치
-          scrollwheel : true, //마우스 휠로 확대 축소 사용 여부
-          mapTypeControl : true //맵 타입 컨트롤 사용 여부
-        });
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map
-        });
+        geo = new google.maps.Geocoder();
+        var req = {
+        address: "<%= @propertys.address %>",
+        };
+        geo.geocode(req, geoResultCallback);
       }
+      function geoResultCallback(result, status) {
+      if (status != google.maps.GeocoderStatus.OK) {
+        alert("住所が間違っています。ご確認後、修正お願いします。");
+        return;
+      }
+      var latlng = result[0].geometry.location;
+      
+      var map = new google.maps.Map(document.getElementById('google_map'),{
+        zoom: 14,
+        center: latlng
+      });
+      new google.maps.Marker({position:latlng, map:map});
+    }
+    
 </script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfhQeDhWJ_go3vaiDCB0slA9uFoK4nSpw&callback=initMap">
@@ -55,7 +65,7 @@
     </tr>
     <tr>
       <th>家賃</th>
-      <th><%= @propertys.rent %>万</th>
+      <th><%= @propertys.rent %></th>
     </tr>
     <tr>
       <th>間取り</th>
@@ -71,11 +81,11 @@
     </tr>
     <tr>
       <th>区</th>
-      <th><%= @propertys.region %>区</th>
+      <th><%= @propertys.region %></th>
     </tr>  
     <tr>
       <th>広さ(㎡)</th>
-      <th><%= @propertys.area %>㎡</th>
+      <th><%= @propertys.area %></th>
     </tr>
     <tr>
       <th>地図</th>
