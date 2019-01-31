@@ -8,34 +8,50 @@
     </ul>
   </div>
 <% end %>
-<%= form_with(model: @user, local: true) do |f| %>
+<%= form_with(model: @user, url: user_choose_new_or_edit, local: true) do |f| %>
   <table>
     <tr>
       <td><%= f.label :icon_image %></td>
-      <td><%= f.file_field :icon_image %></td>    
+      <% if @user.icon_image.blank? %>
+        <td><%= f.file_field :icon_image %>
+      <% else %>
+        <td><%= image_tag @user.icon_image.url %></td>
+        <td><%= f.file_field :icon_image %></td>
+        <td><%= f.hidden_field :icon_image_cache %></td>
+      <% end %>  
     </tr>
     <tr>
       <td><%= f.label :name %></td>
-      <td><%= f.text_field :name %></td>
+      <td><%= f.text_field :name , :value => @user.name %></td>
+      <td></td>
     </tr>
     <tr>
       <td><%= f.label :email %></td>
-      <td><%= f.text_field :email %></td>
+      <td><%= f.text_field :email, :value => @user.email, :readonly => true %></td>
+      <td><%= f.hidden_field :email, :value => @user.email %></td>
     </tr>
     <tr>
       <td><%= f.label :authority %></td>
-      <td><%= f.select(:authority, [['不動産業者', 1], ['利用者', 2]]) %></td>
+      <% if @user.authority == 1 %>
+        <td>不動産業者</td>
+        <td><%= hidden_field :authority, :value => @user.authority %></td>
+      <% elsif @user.authority == 2%>
+        <td>利用者</td>
+        <td><%= hidden_field :authority, :value => @user.authority %></td>
+      <% else %>
+        <td><%= f.select(:authority, [['不動産業者', 1], ['利用者', 2]]) %></td>
+      <% end %>
     </tr>
     <tr>
       <td><%= f.label :password %></td>
-      <td><%= f.password_field :password %></td>
+      <td><%= f.password_field :password, :value => @user.password %></td>
     </tr>
     <tr>
       <td><%= f.label :password確認 %></td>
       <td><%= f.password_field :password_confirmation %></td>
     </tr>
     <tr>
-      <td colspan ='2'><%= f.submit "会員加入" %></td>
+      <td colspan ='2'><%= f.submit "登録" %></td>
     </tr>
   </table>
 <% end %>

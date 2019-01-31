@@ -1,5 +1,5 @@
 class PropertysController < ApplicationController
-  before_action:checkSession, only: [ :new, :edit, :show, :destroy, :list, :googlema,:popular_list, :confirm]
+  before_action:checkSession, only: [:new, :edit, :show, :destroy, :list, :googlema,:popular_list, :confirm]
   before_action:user_have_current, only: [:list, :show]
   
   #count++
@@ -7,6 +7,11 @@ class PropertysController < ApplicationController
   #, unique: [:ip_address]
 
   def index
+    if logged_in?
+      @user = User.find(current_user.id)
+      puts("dddddddddddddd")
+      p @user
+    end
   end
   
   def googlemap
@@ -20,9 +25,7 @@ class PropertysController < ApplicationController
   end
 
   def new
-    puts ("dddd")
-    p Geocoder.coordinates("東京都千代田区千代田１−１")
-
+    #p Geocoder.coordinates("東京都千代田区千代田１−１")
     if params[:back]
       @propertys = Property.new(property_params)
     else

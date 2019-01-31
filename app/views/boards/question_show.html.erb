@@ -21,7 +21,7 @@
   <tr>
     <td colspan='2'>reply</td>
   </tr>
-  <% if @user.name == 'admin' %>
+  <% if @user.name == 'admin' || @questionboard.user_id == current_user.id %>
     <%= form_with(model: @questionboard, local: true, url: question_update_boards_path, method: 'post') do |f| %>
       <% if @questionboard.reply == nil %>
       <tr>

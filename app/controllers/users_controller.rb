@@ -5,12 +5,10 @@ class UsersController < ApplicationController
   end
   
   def new
-    puts("유저 뉴 진입")
     @user = User.new
   end
   
   def create 
-    puts("유저 크리에이트 진입")
     @user = User.new(user_params)
     if @user.save
       redirect_to user_path(@user.id)
@@ -20,13 +18,28 @@ class UsersController < ApplicationController
   end
   
   def show
-    puts("유저 쇼 진입")
     @user = User.find(params[:id])
-    #@user = User.find(params[:id])
   end
   
+  def edit
+    @user = User.find(params[:id])
+  end
+  
+  def update
+    puts ('dddddd@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+    @user = User.find(params[:id])
+    p @user
+    if @user.update(user_params)
+      
+      redirect_to user_path
+    else
+      logger.debug @user.errors.inspect
+      redirect_to edit_user_path(current_user.id)
+    end
+  end
+  
+  private
   def user_params
-    params.require(:user).permit(:icon_image, :name, :authority, :email, :password )
+    params.require(:user).permit(:icon_image, :user_image_cache, :name, :authority, :email, :password )
   end
-  
 end
