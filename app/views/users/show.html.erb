@@ -23,5 +23,7 @@
       <td>あなたは<%= @user.id %>番目の会員です。</td>
     </tr>
   </table>
+  <% if logged_in? %>
     <%= link_to '会員情報修正', edit_user_path(current_user.id) %>
+  <% end %>  
 </div>

@@ -63,9 +63,9 @@
       <th><%= link_to f.title, question_show_boards_path(id: f.id) %></th>
       <th><%= f.created_at %></th>
       <% if f.reply == nil %>
-        <th> X </th>
+        <th> 未対応　</th>
       <% else %>
-        <th> O </th>
+        <th> Reply済み </th>
       <% end %>
     <% if f.user_id == current_user.id %>
       <%# <th><%= link_to '編集', question_update_boards_path(id: f.id), data:{confirm: "お問い合わせを編集しますか."} </th>%>
