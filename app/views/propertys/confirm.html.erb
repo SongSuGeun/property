@@ -61,7 +61,7 @@
       <td><%= f.hidden_field :name, value: @propertys.name %></td>
     </tr>
     <tr>
-      <td>物件名</td>
+      <td>住所</td>
       <td><%= @propertys.address %></td>
       <td><%= f.hidden_field :address, value: @propertys.address %></td>
     </tr>
@@ -79,18 +79,6 @@
       <td>礼金</td>
       <td><%= @propertys.reward %></td>
       <td><%= f.hidden_field :reward, value: @propertys.reward %></td>
-    </tr>
-    <tr>
-      <td>区</td>
-      <td>
-        <% if @propertys.region == ('千代田'||'中央'||'港'||'新宿'||'文京'||'台東'||'渋谷'||'豊島'||'世田谷'||'中野'||'品川'||'目黒'||'墨田'||'北'||'江戸川'||'練馬'||'杉並') %>
-          toukyou
-        <% else %>
-          oosaka
-        <% end %>
-        <%= @propertys.region %>区
-      </td>
-      <td><%= f.hidden_field :region, value: @propertys.region %></td>
     </tr>
     <tr>
       <th>地図</th>
