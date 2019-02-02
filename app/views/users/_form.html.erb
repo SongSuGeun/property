@@ -27,11 +27,11 @@
     </tr>
     <tr>
       <td><%= f.label :email %></td>
-      <% if @user.present? %>
-        <td><%= f.text_field :email %></td>
-      <% else %>
+      <% if logged_in? %>
         <td><%= f.text_field :email, :value => @user.email, :readonly => true %></td>
         <td><%= f.hidden_field :email, :value => @user.email %></td>
+      <% else %>
+        <td><%= f.text_field :email %></td>
       <% end %>
     </tr>
     <tr>
