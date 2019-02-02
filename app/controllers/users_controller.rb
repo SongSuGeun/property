@@ -9,7 +9,9 @@ class UsersController < ApplicationController
   end
   
   def create 
+    puts ('dddddd@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
     @user = User.new(user_params)
+    p @user
     if @user.save
       redirect_to user_path(@user.id)
     else
@@ -26,7 +28,6 @@ class UsersController < ApplicationController
   end
   
   def update
-    puts ('dddddd@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
     @user = User.find(params[:id])
     p @user
     if @user.update(user_params)

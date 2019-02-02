@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
 	<body>
-				<!-- Header -->
+	    <!-- Header -->
 			<header id="header">
 				<nav class="left">
 					<a href="#menu"><span>Menu</span></a>
@@ -35,9 +35,11 @@
 		          <li><%= link_to "ログアウト", logout_path(current_user.id), method: :delete %>
   		          <li><%= link_to (boards_path) do  %>掲示板<% end %>
   		          <li><%= link_to (list_propertys_path) do  %>物件一覧<% end %>
-  		          <% if @user.authority == 1  %>
-  		            <li><%= link_to (new_property_path) do  %>物件登録<% end %>
-  		          <% end %>
+  		          <% if @user.present? %>
+  		            <% if @user.authority==1 %>
+  		              <li><%= link_to (new_property_path) do  %>物件登録<% end %>
+  		            <% end %>
+  		          <% end %>  
 				</ul>
 		      <% else %>
   		      <li><%= link_to new_user_path do  %>会員加入<% end %>

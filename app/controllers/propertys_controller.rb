@@ -1,6 +1,6 @@
 class PropertysController < ApplicationController
-  before_action:checkSession, only: [:new, :edit, :show, :destroy, :list, :googlema,:popular_list, :confirm]
-  before_action:user_have_current, only: [:list, :show]
+  before_action:checkSession, only: [:new, :edit, :show, :destroy, :list, :googlemap,:popular_list, :confirm]
+  #before_action:user_have_current, only: [:list, :show]
   
   #count++
   impressionist actions: [:show]
@@ -26,6 +26,7 @@ class PropertysController < ApplicationController
 
   def new
     #p Geocoder.coordinates("東京都千代田区千代田１−１")
+    
     if params[:back]
       @propertys = Property.new(property_params)
     else
@@ -99,5 +100,9 @@ class PropertysController < ApplicationController
     params.require(:property).permit({image: []}, :video, :image_cache, :name, :rent, :subsidy, :reward, :region, :area, :extent, :address, :latitude, :longitude )
   end
   
-
+  def checkSession 
+    puts("++++++++++++++++++++++")
+    @user = User.find(session[:user_id])
+    p @user
+  end
 end
