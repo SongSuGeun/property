@@ -9,7 +9,6 @@ class PropertysController < ApplicationController
   def index
     if logged_in?
       @user = User.find(current_user.id)
-      puts("dddddddddddddd")
       p @user
     end
   end
@@ -48,7 +47,6 @@ class PropertysController < ApplicationController
     if params[:property][:video] != nil
       @propertys.video = Rails.root.join("public/#{params[:property][:video]}").open
     end
-    p @propertys.video
     if @propertys.save
       puts("good")
       redirect_to list_propertys_path

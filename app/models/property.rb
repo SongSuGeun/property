@@ -2,7 +2,6 @@ class Property < ApplicationRecord
   validates:name,  presence:true, length:{ minimum: 4 }
   validates:image, presence:true
   validates:rent, presence:true
-  validates:region, presence:true
   validates:area, presence:true
   validates:address, presence:true
   mount_uploaders :image, ImageUploader
