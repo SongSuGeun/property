@@ -97,7 +97,7 @@ class PropertysController < ApplicationController
   private
   
   def property_params
-    params.require(:property).permit({image: []}, :video, :image_cache, :name, :rent, :subsidy, :reward, :region, :area, :extent, :address, :latitude, :longitude )
+    params.require(:property).permit({image: []}, :video, :image_cache, :name, :rent, :subsidy, :reward, :area, :extent, :address)
   end
   
   def checkSession 
