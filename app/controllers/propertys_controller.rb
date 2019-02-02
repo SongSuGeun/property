@@ -1,5 +1,5 @@
 class PropertysController < ApplicationController
-  before_action:checkSession, only: [:new, :edit, :show, :destroy, :list, :googlemap,:popular_list, :confirm]
+  before_action:checkSession, only: [:new, :edit, :show, :destroy, :list, :googlemap, :popular_list, :confirm]
   #before_action:user_have_current, only: [:list, :show]
   
   #count++

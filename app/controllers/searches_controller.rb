@@ -1,7 +1,5 @@
 class SearchesController < ApplicationController
-  
   def index
-    puts("@@@@")
   end
   
   def result
@@ -15,5 +13,5 @@ class SearchesController < ApplicationController
     p @searches
    #@searches = eval(params[:bulletin]).where("name like ?", "%#{params[:search_text]}%")
   end
-  
+
 end

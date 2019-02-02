@@ -39,7 +39,7 @@
       <% if @user.authority == 1 %>
         <td>不動産業者</td>
         <td><%= hidden_field :authority, :value => @user.authority %></td>
-      <% elsif @user.authority == 2%>
+      <% elsif @user.authority == 2 %>
         <td>利用者</td>
         <td><%= hidden_field :authority, :value => @user.authority %></td>
       <% else %>
