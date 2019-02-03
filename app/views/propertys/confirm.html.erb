@@ -39,6 +39,8 @@
         <% @propertys.image.each do |image| %>
           <td><%= image_tag(image.url)%></td>
         <% end %>
+      <% else %>
+        <td bgcolor="#FF0000">イメージは最低一枚以上登録してください！。</td>
       <% end %>  
       <td><%= f.hidden_field :image, value: @propertys.image %></td>
       <td><%= f.hidden_field :image_cache %></td>
