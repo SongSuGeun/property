@@ -1,6 +1,6 @@
 class PropertysController < ApplicationController
   before_action:checkSession, only: [:new, :edit, :show, :destroy, :list, :googlemap, :popular_list, :confirm, :update]
-  before_action:user_have_current, only: [:list, :show]
+  before_action:user_have_current, only: [:list, :show ,:new ,:edit]
   
   #count++
   impressionist actions: [:show]
@@ -52,6 +52,7 @@ class PropertysController < ApplicationController
     else
       puts("bad")
       logger.debug @propertys.errors.inspect
+      session[:error] = @propertys.errors.full_messages
       redirect_to new_property_path
     end
   end
@@ -77,17 +78,20 @@ class PropertysController < ApplicationController
   
   def edit
     @propertys = Property.find(params[:id])
+    puts ("222222222222222")
     p @propertys 
   end
   
   def update
+    puts ("bbbbbbbbbb")
     @propertys = Property.find(params[:id])
     if params[:property][:video] != nil
       @propertys.video = Rails.root.join("public/#{params[:property][:video]}").open
     end
-    p @propertys
+    puts ("aaaaaaaaaaaa")
     @propertys.update(property_params)
-    redirect_to list_propertys_path
+      p @propertys
+      redirect_to list_propertys_path
   end
   
 

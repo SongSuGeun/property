@@ -1,12 +1,12 @@
-<% if @user.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@user.errors.count, "件エーラの") %> が発生しました、ご確認お願いします。</h2>
-    <ul>
-    <% @user.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
+<%= form_for @user do |f| %>
+  <% if session[:error].present? %>
+    <ul class="errors">
+      <% session[:error].each do |e| %>
+        <li><%= e %></li>
+      <% end %>
     </ul>
-  </div>
+    <% session[:error] = nil # 念のため使い終わったら消す %>   
+  <% end %>
 <% end %>
 <%= form_with(model: @user, url: user_choose_new_or_edit, local: true) do |f| %>
   <table>

@@ -1,10 +1,6 @@
 <script language='javascript'>
 function sub(){
-  if($("#image").val() === null || $("#image").val() == ''){  
-    alert("物件イメージは最低一枚登録してください。")
-    return false;
-  }  
-  else if($("#name").val() == null || $("#name").val() == ''){  
+  if($("#name").val() == null || $("#name").val() == ''){  
     alert("物件名を入力してください。")
     return false;
   }
@@ -40,17 +36,7 @@ function GooglemapGuide(){
   window.open( googlemap_dic ,'','width=790, height=800,scrollbars=yes,toolbar=no,menubar=no,status=no,resizable=yes')
 }
 </script>
-<% if @propertys.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@propertys.errors.count, "件エーラの") %> が発生しました、ご確認お願いします。</h2>
-    <ul>
-    <% @propertys.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-    </ul>
-  </div>
-<% end %>
-<%= form_with(model: @propertys, local: true, url: choose_new_or_edit, name: "Form",  method: "post") do |f| %>
+<%= form_with(model: @propertys, local: true, url: choose_new_or_edit) do |f| %>
 <table>
     <tr>
       <td ropspan ='2'><%= f.label :物件イメージ %></td>
@@ -58,9 +44,11 @@ function GooglemapGuide(){
           <% @propertys.image.each do |image| %>
             <th><%= image_tag (image.url)%></th>
             <td><%= f.file_field :image, :multiple => true, :value => @propertys.image, :id => "image" %></td>
+            <td><%= f.hidden_field :image_cache %></td>
           <% end %>
         <% else %>
           <td><%= f.file_field :image, :multiple => true, :value => @propertys.image, :id => "image" %></td>
+          <td><%= f.hidden_field :image_cache %></td>
         <% end %>
     </tr>
     <tr>

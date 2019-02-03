@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
-
   def index 
-    
   end
   
   def new
@@ -14,7 +12,8 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to user_path(@user.id)
     else
-      render 'users/new'
+      session[:error] = @user.errors.full_messages
+      redirect_to new_user_path
     end
   end
   
@@ -30,10 +29,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     p @user
     if @user.update(user_params)
-      
       redirect_to user_path
     else
       logger.debug @user.errors.inspect
+      session[:error] = @user.errors.full_messages
       redirect_to edit_user_path(current_user.id)
     end
   end
