@@ -1,5 +1,5 @@
 class BoardsController < ApplicationController
-  before_action:checkSession
+  before_action:checkSession, only: [:index, :write_noticeboards, :write_questionboard, :create_notice, :create_question, :create_notice, :question_show, :notice_update, :edit,:questionboard,:question_update,:show,:destroy_questionboard]
   before_action:user_have_current, only: [:index, :write_noticeboards, :write_questionboard, :question_show, :edit]
   
   def index
@@ -18,7 +18,7 @@ class BoardsController < ApplicationController
   def create_notice
     @noticeboards = Noticeboard.new(notice_params)
     p @noticeboards
-    if @noticeboards.save
+    if @noticeboards.save 
       redirect_to boards_path
     else
       logger.debug @noticeboards.errors.inspect

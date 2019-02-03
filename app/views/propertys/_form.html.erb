@@ -22,24 +22,14 @@ function sub(){
   }
   var rent = document.getElementById('rent');
   var area = document.getElementById('area');
-  
   var re = /^[1.0-9.0]+$/;
   if(!re.test(rent.value)) {
-    alert("家賃欄に正常数を入れてください。");
+    alert("家賃欄は数字で入力しましょう。");
     return false;
   }
-
   else if(!re.test(area.value)) {
-    alert("広さ欄に正常数を入れてください。");
+    alert("広さ欄は数字で入力しましょう。");
     return false;
-  }
-  if($('#injapanTOKYO').is(':checked')) {
-    $('#oosakaku').remove();
-    return true;
-  }
-  else if($('#injapanOOSAKA').is(':checked')){
-    $('#tokyoku').remove();
-    return true;
   }
 };
 function GooglemapGuide(){
@@ -95,11 +85,11 @@ function GooglemapGuide(){
     </tr>
     <tr>
       <td><%= f.label :敷金 %></td>
-      <td><%= f.select :subsidy, [['なし', 'なし'], ['1か月', '1か月'],['2か月', '2か月']], :selected => @propertys.subsidy, :value => @propertys.reward  %></td>
+      <td><%= f.select :subsidy, [['なし', 'なし'], ['1ヵ月', '1ヵ月'],['2ヵ月', '2ヵ月']], :selected => @propertys.subsidy, :value => @propertys.reward  %></td>
     </tr>
     <tr>
       <td><%= f.label :礼金 %></td>
-      <td><%= f.select :reward, [['なし', 'なし'], ['1か月', '1か月'],['2か月', '2か月']], :selected => @propertys.reward, :value => @propertys.reward %></td>
+      <td><%= f.select :reward, [['なし', 'なし'], ['1ヵ月', '1ヵ月'],['2ヵ月', '2ヵ月']], :selected => @propertys.reward, :value => @propertys.reward %></td>
     </tr>
     <tr>
       <td><%= f.label :広さ %>(㎡)</td>

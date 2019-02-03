@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include SessionsHelper
-  
-  
   private
   
   def checkSession
@@ -11,11 +9,14 @@ class ApplicationController < ActionController::Base
     end 
   end
   
+  def user_is_logged_in?
+    !!session[:user_id]
+  end
+  
   def user_have_current
     if current_user.present?
       @user = User.find(current_user.id)
       p @user
     end
   end
-  
 end

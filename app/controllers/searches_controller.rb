@@ -1,4 +1,6 @@
 class SearchesController < ApplicationController
+  before_action:checkSession, only: [:result, :many_result]
+  
   def index
   end
   

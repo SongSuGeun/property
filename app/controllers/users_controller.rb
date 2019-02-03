@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   end
   
   def create 
-    puts ('dddddd@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
     @user = User.new(user_params)
     p @user
     if @user.save

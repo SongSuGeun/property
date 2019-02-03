@@ -1,6 +1,6 @@
 class PropertysController < ApplicationController
-  before_action:checkSession, only: [:new, :edit, :show, :destroy, :list, :googlemap, :popular_list, :confirm]
-  #before_action:user_have_current, only: [:list, :show]
+  before_action:checkSession, only: [:new, :edit, :show, :destroy, :list, :googlemap, :popular_list, :confirm, :update]
+  before_action:user_have_current, only: [:list, :show]
   
   #count++
   impressionist actions: [:show]
@@ -25,7 +25,6 @@ class PropertysController < ApplicationController
 
   def new
     #p Geocoder.coordinates("東京都千代田区千代田１−１")
-    
     if params[:back]
       @propertys = Property.new(property_params)
     else
@@ -34,7 +33,6 @@ class PropertysController < ApplicationController
   end
   
   def confirm
-    
     @propertys = Property.new(property_params)
     #@property.video = params[:property][:video]
     p @propertys
@@ -47,6 +45,7 @@ class PropertysController < ApplicationController
     if params[:property][:video] != nil
       @propertys.video = Rails.root.join("public/#{params[:property][:video]}").open
     end
+    p @propertys
     if @propertys.save
       puts("good")
       redirect_to list_propertys_path
@@ -95,12 +94,7 @@ class PropertysController < ApplicationController
   private
   
   def property_params
-    params.require(:property).permit({image: []}, :video, :image_cache, :name, :rent, :subsidy, :reward, :area, :extent, :address)
+    params.require(:property).permit({image: []}, :video, :image_cache, :name, :rent, :subsidy, :reward, :area, :extent, :address, :longitude , :latitude)
   end
-  
-  def checkSession 
-    puts("++++++++++++++++++++++")
-    @user = User.find(session[:user_id])
-    p @user
-  end
+ 
 end

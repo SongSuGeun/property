@@ -50,7 +50,6 @@
       <% if @propertys.video? %>
         <td><%= video_tag @propertys.video.url, autoplay: true, muted: true, controls: true , :size => "350x260"%></td>
         <%= f.hidden_field :video, :value => @propertys.video.url %>
-        <%= f.hidden_field :video, value: @propertys.video.url %>
       <% else %>
         <td>登録されたビデオがありません。</td>
       <% end %>  
@@ -85,8 +84,7 @@
     </tr>  
     <tr>
       <th>
-        <div id="google_map"  style="width:500px;height:380px;"></div>
-        <td><%= f.hidden_field :address, value: @propertys.address %></td>
+        <div id="google_map" style="width:500px;height:380px;"></div>
       </th>
     </tr>
     <tr>
