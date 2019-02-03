@@ -48,7 +48,7 @@ class PropertysController < ApplicationController
     p @propertys
     if @propertys.save
       puts("good")
-      redirect_to list_propertys_path
+      redirect_to list_propertys_path, notice: "投稿成功しました。"
     else
       puts("bad")
       logger.debug @propertys.errors.inspect
