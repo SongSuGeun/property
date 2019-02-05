@@ -36,18 +36,14 @@ function GooglemapGuide(){
   window.open( googlemap_dic ,'','width=790, height=800,scrollbars=yes,toolbar=no,menubar=no,status=no,resizable=yes')
 }
 </script>
-
-<%= form_for @user do |f| %>
-  <% if session[:error].present? %>
-    <ul class="errors">
-      <% session[:error].each do |e| %>
-        <li><%= e %></li>
-      <% end %>
-    </ul>
-    <% session[:error] = nil # 念のため使い終わったら消す %>   
-  <% end %>
+<% if session[:error].present? %>
+  <ul class="errors">
+    <% session[:error].each do |e| %>
+      <li><%= e %></li>
+    <% end %>
+  </ul>
+  <% session[:error] = nil # 念のため使い終わったら消す %>   
 <% end %>
-
 <%= form_with(model: @propertys, local: true, url: choose_new_or_edit) do |f| %>
 <table>
     <tr>
