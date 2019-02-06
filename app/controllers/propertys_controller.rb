@@ -1,7 +1,6 @@
 class PropertysController < ApplicationController
   before_action:checkSession, only: [:new, :edit, :show, :destroy, :list, :googlemap, :popular_list, :confirm, :update]
   before_action:user_have_current, only: [:list, :show ,:new ,:edit]
-  
   #count++
   impressionist actions: [:show]
   #, unique: [:ip_address]
@@ -35,7 +34,6 @@ class PropertysController < ApplicationController
   def confirm
     @propertys = Property.new(property_params)
     #@property.video = params[:property][:video]
-    p @propertys
   end
   
   def create
@@ -78,17 +76,15 @@ class PropertysController < ApplicationController
   
   def edit
     @propertys = Property.find(params[:id])
-    puts ("222222222222222")
+    only_write_user_edit
     p @propertys 
   end
   
   def update
-    puts ("bbbbbbbbbb")
     @propertys = Property.find(params[:id])
     if params[:property][:video] != nil
       @propertys.video = Rails.root.join("public/#{params[:property][:video]}").open
     end
-    puts ("aaaaaaaaaaaa")
     @propertys.update(property_params)
       p @propertys
       redirect_to list_propertys_path
@@ -101,4 +97,10 @@ class PropertysController < ApplicationController
     params.require(:property).permit({image: []}, :video, :image_cache, :name, :rent, :subsidy, :reward, :area, :extent, :address, :longitude , :latitude)
   end
  
+  def only_write_user_edit
+     if current_user.id != @propertys.user_id
+       redirect_to list_propertys_path
+     end
+  end
+  
 end

@@ -1,4 +1,9 @@
- <script>
+<style>
+  table {
+    width: 1000px;
+  }
+</style>
+<script>
  var geo;
  var map
       function initMap() {
@@ -8,7 +13,6 @@
         };
         geo.geocode(req, geoResultCallback);
       }
-    
       function geoResultCallback(result, status) {
       if (status != google.maps.GeocoderStatus.OK) {
         alert("住所が間違っています。ご確認後、修正お願いします。");
@@ -22,7 +26,6 @@
       });
       new google.maps.Marker({position:latlng, map:map});
     }
-    
 </script>
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfhQeDhWJ_go3vaiDCB0slA9uFoK4nSpw&callback=initMap">
@@ -31,13 +34,13 @@
 <div>
 <table>
   <tr>
-    <td>物件イメージ</td>
+    <th colspan='5'>物件写真</th>
   </tr>
 <%= form_with(model: @propertys, url: propertys_path, local: true) do |f| %>  
     <tr>
       <% if @propertys.image? %>
         <% @propertys.image.each do |image| %>
-          <td><%= image_tag(image.url)%></td>
+          <th><%= image_tag(image.url)%></th>
         <% end %>
       <% else %>
         <td bgcolor="#FF0000">イメージは最低一枚以上登録してください！。</td>
@@ -46,34 +49,34 @@
       <td><%= f.hidden_field :image_cache %></td>
     </tr>
     <tr>
-      <td>ビデオ</td>
+      <td colspan='5'>ビデオ</td>
     </tr>
     <tr>
       <% if @propertys.video? %>
         <td><%= video_tag @propertys.video.url, autoplay: true, muted: true, controls: true , :size => "350x260"%></td>
         <%= f.hidden_field :video, :value => @propertys.video.url %>
       <% else %>
-        <td>登録されたビデオがありません。</td>
+        <td colspan ='5'>登録されたビデオがありません。</td>
       <% end %>  
     </tr>
     <tr>
       <td>物件名</td>
-      <td><%= @propertys.name %></td>
+      <td colspan='5'><%= @propertys.name %></td>
       <td><%= f.hidden_field :name, value: @propertys.name %></td>
     </tr>
     <tr>
       <td>住所</td>
-      <td><%= @propertys.address %></td>
+      <td colspan='5'><%= @propertys.address %></td>
       <td><%= f.hidden_field :address, value: @propertys.address %></td>
     </tr>
     <tr>
       <td>家賃</td>
-      <td><%= @propertys.rent %>万</td>
+      <td colspan='5'><%= @propertys.rent %>万</td>
       <td><%= f.hidden_field :rent, value: @propertys.rent %></td>
     </tr>
     <tr>
       <td>敷金</td>
-      <td><%= @propertys.subsidy %></td>
+      <td colspan='5'><%= @propertys.subsidy %></td>
       <td><%= f.hidden_field :subsidy, value: @propertys.subsidy %></td>
     </tr>
     <tr>
@@ -82,25 +85,25 @@
       <td><%= f.hidden_field :reward, value: @propertys.reward %></td>
     </tr>
     <tr>
-      <th>地図</th>
+      <th colspan ='5'>地図</th>
     </tr>  
     <tr>
-      <th>
+      <th colspan ='5'>
         <div id="google_map" style="width:500px;height:380px;"></div>
       </th>
     </tr>
     <tr>
       <td>広さ</td>
-      <td><%= @propertys.area %>㎡</td>
+      <td colspan='5'><%= @propertys.area %>㎡</td>
       <td><%= f.hidden_field :area, value: @propertys.area %></td>
     </tr>
     <tr>
       <td>間取り</td>
-      <td><%= @propertys.extent %></td>
+      <td colspan='5'><%= @propertys.extent %></td>
       <td><%= f.hidden_field :extent, value: @propertys.extent %></td>    
     </tr>
     <tr>
-      <td><%= f.submit "登録" %></td>
+      <td colspan ='5'><%= f.submit "登録" %></td>
     </tr>
 <% end %>
 </table>

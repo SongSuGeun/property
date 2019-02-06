@@ -1,4 +1,9 @@
- <script>
+<style>
+  table {
+    width: 850px;
+  }
+</style>
+<script>
  var geo;
  var map
       function initMap() {
@@ -28,7 +33,7 @@
 </script>
 <table>
     <tr>
-      <th>
+      <th colspan='2'>
         物件写真
       </th>
     </tr>
@@ -54,7 +59,7 @@
         <th><%= @propertys.impressionist_count %></th>
     </tr>
     <tr>
-      <th>ビデオ</th>
+      <th colspan='2'>ビデオ</th>
     </tr>
     <tr>
     <% if @propertys.video? %>
@@ -85,9 +90,9 @@
     </tr>
     <tr>
       <th>地図</th>
-    </tr>  
+    </tr>
     <tr>
-      <th>
+      <th colspan ='2'>
         <div id="google_map"  style="width:500px;height:380px;"></div>
       </th>
     </tr>
